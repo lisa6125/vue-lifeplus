@@ -9,6 +9,7 @@ import session from 'express-session'
 import routerUser from './routers/users.js'
 import routerProduct from './routers/products.js'
 import routerOrder from './routers/order.js'
+import routerShare from './routers/share.js'
 
 dotenv.config()
 
@@ -68,6 +69,7 @@ app.set('trust proxy', 1)
 app.use('/users', routerUser)
 app.use('/products', routerProduct)
 app.use('/orders', routerOrder)
+app.use('/shares', routerShare)
 
 app.use((_, req, res, next) => {
   res.status(500).send({ success: false, message: '伺服器錯誤' })
