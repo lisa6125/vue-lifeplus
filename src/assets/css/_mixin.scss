@@ -1,0 +1,25 @@
+@mixin media-w1024 {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin media-w896 {
+  @media (max-width: 896px) {
+    @content;
+  }
+}
+@mixin media-w767 {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+@mixin media-w667 {
+  @media (max-width: 667px) {
+    @content;
+  }
+}
+@mixin media-w568 {
+  @media (max-width: 568px) {
+    @content;
+  }
+}
