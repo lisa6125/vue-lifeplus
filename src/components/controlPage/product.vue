@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   b-container.px-5#Controlproducts.mt-4(fluid)
     b-row.border-bottom.border-secondary.mx-5.px-5
       b-col.p-3.d-flex.justify-content-between(cols="12")
@@ -162,191 +162,196 @@
 
 <script>
 export default {
-  name: 'ControlProduct',
-  data () {
+  name: "ControlProduct",
+  data() {
     return {
-      productName: '',
-      type: '',
-      price: '',
-      onsale: '',
-      description: '',
-      quantity: '',
+      productName: "",
+      type: "",
+      price: "",
+      onsale: "",
+      description: "",
+      quantity: "",
       file: null,
       products: [],
       priviewPic: [],
-      image: []
-    }
+      image: [],
+    };
   },
   computed: {
-    descState () {
+    descState() {
       if (this.description.length === 0) {
-        return null
+        return null;
       } else if (this.description.length > 1000) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
-    }
+    },
   },
   methods: {
-    onSubmit () {
-      const fd = new FormData()
-      fd.append('productName', this.productName)
-      fd.append('type', this.type)
-      fd.append('price', this.price)
-      fd.append('quantity', this.quantity)
-      fd.append('onsale', this.onsale)
-      fd.append('description', this.description)
+    onSubmit() {
+      const fd = new FormData();
+      fd.append("productName", this.productName);
+      fd.append("type", this.type);
+      fd.append("price", this.price);
+      fd.append("quantity", this.quantity);
+      fd.append("onsale", this.onsale);
+      fd.append("description", this.description);
       this.image.forEach((item) => {
-        fd.append('file', item)
-      })
+        fd.append("file", item);
+      });
       this.axios
-        .post(process.env.VUE_APP_API + '/products/', fd)
-        .then(
-          (res) => {
-            res.data.result.src = process.env.VUE_APP_API + '/products/images/' + res.data.result.images[0].file
-            res.data.result.productNameModel = res.data.result.productName
-            res.data.result.typeModel = res.data.result.type
-            res.data.result.priceModel = res.data.result.price
-            res.data.result.quantityeModel = res.data.result.quantity
-            res.data.result.onsaleModel = res.data.result.onsale
-            res.data.result.descriptionModel = res.data.result.description
-            res.data.result.edit = false
-            res.data.result.showDetail = false
-            delete res.data.result.file
-            this.products.push(res.data.result)
-            this.image = []
-            this.description = ''
-            this.productName = ''
-            this.type = ''
-            this.price = ''
-            this.quantity = ''
-            this.onsale = ''
-            this.description = ''
-            console.log(res)
-            this.$swal({
-              icon: 'success',
-              title: '新增商品成功'
-            })
-            this.priviewPic = []
-          }
-        )
+        .post(process.env.VUE_APP_API + "/products/", fd)
+        .then((res) => {
+          res.data.result.src =
+            process.env.VUE_APP_API +
+            "/products/images/" +
+            res.data.result.images[0].file;
+          res.data.result.productNameModel = res.data.result.productName;
+          res.data.result.typeModel = res.data.result.type;
+          res.data.result.priceModel = res.data.result.price;
+          res.data.result.quantityeModel = res.data.result.quantity;
+          res.data.result.onsaleModel = res.data.result.onsale;
+          res.data.result.descriptionModel = res.data.result.description;
+          res.data.result.edit = false;
+          res.data.result.showDetail = false;
+          delete res.data.result.file;
+          this.products.push(res.data.result);
+          this.image = [];
+          this.description = "";
+          this.productName = "";
+          this.type = "";
+          this.price = "";
+          this.quantity = "";
+          this.onsale = "";
+          this.description = "";
+          console.log(res);
+          this.$swal({
+            icon: "success",
+            title: "新增商品成功",
+          });
+          this.priviewPic = [];
+        })
         .catch((err) => {
           this.$swal({
-            icon: 'error',
-            title: '錯誤',
-            text: err.response.data.message
-          })
-        })
+            icon: "error",
+            title: "錯誤",
+            text: err.response.data.message,
+          });
+        });
     },
-    cancel (product) {
-      product.edit = false
-      product.productNameModel = product.productName
-      product.typeModel = product.type
-      product.priceModel = product.price
-      product.quantityeModel = product.quantity
-      product.onsaleModel = product.onsale
-      product.descriptionModel = product.description
+    cancel(product) {
+      product.edit = false;
+      product.productNameModel = product.productName;
+      product.typeModel = product.type;
+      product.priceModel = product.price;
+      product.quantityeModel = product.quantity;
+      product.onsaleModel = product.onsale;
+      product.descriptionModel = product.description;
     },
-    save (product) {
+    save(product) {
       this.axios
-        .patch(process.env.VUE_APP_API + '/products/' + product._id, {
+        .patch(process.env.VUE_APP_API + "/products/" + product._id, {
           productName: product.productNameModel,
           type: product.typeModel,
           price: product.priceModel,
           quantity: product.quantityeModel,
           onsale: product.onsaleModel,
-          description: product.descriptionModel
+          description: product.descriptionModel,
         })
         .then((res) => {
-          product.edit = false
-          product.title = product.model
-          product.productName = product.productNameModel
-          product.type = product.typeModel
-          product.price = product.priceModel
-          product.quantity = product.quantityeModel
-          product.onsale = product.onsaleModel
-          product.description = product.descriptionModel
-          this.$alert.success('更新成功')
+          product.edit = false;
+          product.title = product.model;
+          product.productName = product.productNameModel;
+          product.type = product.typeModel;
+          product.price = product.priceModel;
+          product.quantity = product.quantityeModel;
+          product.onsale = product.onsaleModel;
+          product.description = product.descriptionModel;
+          this.$alert.success("更新成功");
         })
         .catch((error) => {
-          this.$alert.error(error.response.data.message)
-        })
+          this.$alert.error(error.response.data.message);
+        });
     },
-    edit (product) {
-      product.edit = true
+    edit(product) {
+      product.edit = true;
     },
-    del (product, idx) {
+    del(product, idx) {
       this.axios
-        .delete(process.env.VUE_APP_API + '/products/' + product._id)
+        .delete(process.env.VUE_APP_API + "/products/" + product._id)
         .then((res) => {
           if (res.data.success) {
-            this.products.splice(idx, 1)
-            this.$alert.success('刪除成功')
+            this.products.splice(idx, 1);
+            this.$alert.success("刪除成功");
           } else {
-            this.$alert.error(res.data.message)
+            this.$alert.error(res.data.message);
           }
         })
         .catch((error) => {
-          this.$alert.error(error.response.data.message)
-        })
+          this.$alert.error(error.response.data.message);
+        });
     },
-    uploadFile () {
-      this.image = []
-      this.priviewPic = []
+    uploadFile() {
+      this.image = [];
+      this.priviewPic = [];
       for (const i of this.$refs.fileInput.files) {
         if (i.size > 1024 * 1024) {
-          this.image = []
+          this.image = [];
           this.$swal({
-            icon: 'error',
-            title: '錯誤',
-            text: '圖片太大'
-          })
-        } else if (!i.type.includes('image')) {
-          this.image = []
+            icon: "error",
+            title: "錯誤",
+            text: "圖片太大",
+          });
+        } else if (!i.type.includes("image")) {
+          this.image = [];
           this.$swal({
-            icon: 'error',
-            title: '錯誤',
-            text: '檔案格式錯誤'
-          })
+            icon: "error",
+            title: "錯誤",
+            text: "檔案格式錯誤",
+          });
         } else {
-          this.image.push(i)
+          this.image.push(i);
         }
       }
       // console.log(this.image)
       // console.log(typeof this.image)
       for (let i = 0; i < this.image.length; i++) {
-        this.priviewPic.push(URL.createObjectURL(this.image[i]))
+        this.priviewPic.push(URL.createObjectURL(this.image[i]));
         // console.log(this.image[i])
       }
       // console.log(this.priviewPic)
-    }
+    },
   },
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/products/')
-      .then(res => {
+  mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + "/products/")
+      .then((res) => {
         this.products = res.data.result.map((product) => {
           if (product.images.length > 0) {
-            product.src = process.env.VUE_APP_API + '/products/images/' + product.images[0].file
+            product.src =
+              process.env.VUE_APP_API +
+              "/products/images/" +
+              product.images[0].file;
           }
-          product.productNameModel = product.productName
-          product.typeModel = product.type
-          product.priceModel = product.price
-          product.quantityeModel = product.quantity
-          product.onsaleModel = product.onsale
-          product.descriptionModel = product.description
-          product.edit = false
-          product.showDetail = false
-          delete product.file
-          return product
-        })
+          product.productNameModel = product.productName;
+          product.typeModel = product.type;
+          product.priceModel = product.price;
+          product.quantityeModel = product.quantity;
+          product.onsaleModel = product.onsale;
+          product.descriptionModel = product.description;
+          product.edit = false;
+          product.showDetail = false;
+          delete product.file;
+          return product;
+        });
       })
       .catch((error) => {
-        console.log(error)
-        this.$alert.error(error.response.data.message)
-      })
-  }
-}
+        console.log(error);
+        this.$alert.error(error.response.data.message);
+      });
+  },
+};
 </script>
 
 <style lang="stylus">

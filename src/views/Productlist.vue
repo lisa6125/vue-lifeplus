@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   div#products
     loading(loader="dots" color="rgba(152, 117, 87, 1)" :active.sync='isLoading')
     Navbar(:class="{nav_show:navshow,nav_close:navhide}" @change='controlcart')
@@ -79,139 +79,154 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Navbar from '../components/main/navbar'
-import Footer from '../components/main/footer'
+import { mapGetters } from "vuex";
+import Navbar from "../components/main/navbar";
+import Footer from "../components/main/footer";
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
   },
-  name: 'Products',
-  data () {
+  name: "Products",
+  data() {
     return {
       allproducts: [],
-      filter:this.$route.params.filter,
+      filter: this.$route.params.filter,
       isLoading: false,
       navshow: true,
-      navhide:false,
+      navhide: false,
       lastScrollTop: 0,
-      showcart:false
-    }
+      showcart: false,
+    };
   },
   computed: {
-    filterPro () {
-      if(this.filter==='all'){
-        return this.allproducts
+    filterPro() {
+      if (this.filter === "all") {
+        return this.allproducts;
       } else {
-        return this.allproducts.filter((e)=>{
-          return e.type === this.filter
-        })
+        return this.allproducts.filter((e) => {
+          return e.type === this.filter;
+        });
       }
     },
-    ...mapGetters('favoritesModules', ['favorites']),
-    ...mapGetters('cartModules', ['cart'])
+    ...mapGetters("favoritesModules", ["favorites"]),
+    ...mapGetters("cartModules", ["cart"]),
   },
   methods: {
-    controlcart(val){
-      this.showcart=val
+    controlcart(val) {
+      this.showcart = val;
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`)
+      this.$router.push(`/productdetail/${id}`);
     },
     goCheack() {
-      if(this.$store.state.user.account.length>0){
-        this.$router.push(`/checkorder`)
-      }else{
-        this.$alert.warning('請先登入後結帳')
-        this.$router.push(`/login`)
+      if (this.$store.state.user.account.length > 0) {
+        this.$router.push(`/checkorder`);
+      } else {
+        this.$alert.warning("請先登入後結帳");
+        this.$router.push(`/login`);
       }
     },
     addFaver(product) {
-      this.$alert.totasTopEnd(product.productName , '已加入最愛', product.src1)
+      this.$alert.totasTopEnd(product.productName, "已加入最愛", product.src1);
     },
     // 判斷顯示/隱藏關注樣式
     setliked(item) {
-      const liked = this.favorites.filter(favor => favor._id === item._id)
+      const liked = this.favorites.filter((favor) => favor._id === item._id);
       if (liked.length > 0) {
-        return true
+        return true;
       }
-      return false
+      return false;
     },
     // 變更喜愛的商品資料(新增/移除)
     changeFavorite(product) {
-      this.$store.dispatch('favoritesModules/changeFavorite', product)
-      const liked = this.favorites.filter(favor => favor._id === product._id)
+      this.$store.dispatch("favoritesModules/changeFavorite", product);
+      const liked = this.favorites.filter((favor) => favor._id === product._id);
       if (liked.length > 0) {
-        this.$alert.totasTopEnd(product.productName + ' x ' + 1, '已加入購物車', product.src1)
-      }else{
-        this.$alert.totasTopEnd(product.productName ,'已移除最愛',)
+        this.$alert.totasTopEnd(
+          product.productName + " x " + 1,
+          "已加入購物車",
+          product.src1
+        );
+      } else {
+        this.$alert.totasTopEnd(product.productName, "已移除最愛");
       }
     },
     nav() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       // console.log(scrollTop)
       if (scrollTop > this.lastScrollTop) {
-        this.navshow = false
-        this.navhide = true
+        this.navshow = false;
+        this.navhide = true;
       } else {
-        this.navshow = true
-        this.navhide = false
+        this.navshow = true;
+        this.navhide = false;
       }
-      this.lastScrollTop = scrollTop
+      this.lastScrollTop = scrollTop;
     },
     addProduct(product) {
       const data = {
-          _id: product._id,
-          name: product.productName,
-          src: product.src1,
-          price: product.price,
-          quantity: 1
-      }
-      this.$alert.totasTopEnd(product.productName + ' x ' + '1', '已加入購物車', product.src1)
-      this.$store.dispatch('cartModules/addProduct',data)
+        _id: product._id,
+        name: product.productName,
+        src: product.src1,
+        price: product.price,
+        quantity: 1,
+      };
+      this.$alert.totasTopEnd(
+        product.productName + " x " + "1",
+        "已加入購物車",
+        product.src1
+      );
+      this.$store.dispatch("cartModules/addProduct", data);
     },
     removeProduct(product) {
       const data = {
-        _id: product._id
-      }
-      this.$alert.totasTopEnd(product.productName , '已移除購物車',)
-      this.$store.dispatch('cartModules/removeProduct',data)
+        _id: product._id,
+      };
+      this.$alert.totasTopEnd(product.productName, "已移除購物車");
+      this.$store.dispatch("cartModules/removeProduct", data);
     },
     updateProduct(product) {
       const data = {
         _id: product._id,
-        quantity: 1 //這裡要綁定，還沒寫
-      }
-      this.$alert.totasTopEnd(product.productName , '已更新購物車',)
-      this.$store.dispatch('cartModules/updateProduct',data)
-    }
-  }
-  ,
-  mounted () {
-    this.isLoading = true
-    this.axios.get(process.env.VUE_APP_API + '/products/')
-      .then(res => {
-        let onsaleproducts = res.data.result.filter((e)=>{
-          return e.onsale === true
-        })
+        quantity: 1, //這裡要綁定，還沒寫
+      };
+      this.$alert.totasTopEnd(product.productName, "已更新購物車");
+      this.$store.dispatch("cartModules/updateProduct", data);
+    },
+  },
+  mounted() {
+    this.isLoading = true;
+    this.axios
+      .get(process.env.VUE_APP_API + "/products/")
+      .then((res) => {
+        let onsaleproducts = res.data.result.filter((e) => {
+          return e.onsale === true;
+        });
         this.allproducts = onsaleproducts.map((product) => {
-            product.src1 = process.env.VUE_APP_API + '/products/images/' + product.images[0].file
-            product.src2 = process.env.VUE_APP_API + '/products/images/' + product.images[1].file
-            return product
-        })
-        this.isLoading = false
+          product.src1 =
+            process.env.VUE_APP_API +
+            "/products/images/" +
+            product.images[0].file;
+          product.src2 =
+            process.env.VUE_APP_API +
+            "/products/images/" +
+            product.images[1].file;
+          return product;
+        });
+        this.isLoading = false;
       })
       .catch((error) => {
-        this.$alert.error(error.response.data.message)
-      })
-    
-    window.addEventListener('scroll', this.nav)
+        this.$alert.error(error.response.data.message);
+      });
+
+    window.addEventListener("scroll", this.nav);
   },
-  destroyed () {
-    window.removeEventListener('scroll', this.nav)
-  }
-}
+  destroyed() {
+    window.removeEventListener("scroll", this.nav);
+  },
+};
 </script>
 <style lang="stylus" scoped>
   // nav捲動

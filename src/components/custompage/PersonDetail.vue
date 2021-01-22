@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
   div#personDetail.vh-100.m-auto(v-if='edit')
     h3.text-center {{userName}}會員資料首頁
     #showprofile.m-lg-5
@@ -39,85 +39,93 @@
 
 <script>
 export default {
-  name: 'PersonDetail',
-  data () {
+  name: "PersonDetail",
+  data() {
     return {
-      userName: '',
-      userEmail: '',
-      userAddress: '',
-      userPhone: '',
-      useBirth: '',
-      useGender: '',
-      nameModel: '',
-      emailModel: '',
-      addressModel: '',
-      phoneModel: '',
-      birthModel: '',
-      genderModel: '女性',
+      userName: "",
+      userEmail: "",
+      userAddress: "",
+      userPhone: "",
+      useBirth: "",
+      useGender: "",
+      nameModel: "",
+      emailModel: "",
+      addressModel: "",
+      phoneModel: "",
+      birthModel: "",
+      genderModel: "女性",
       edit: true,
       options: [
-        { item: '女性', name: '女性' },
-        { item: '男性', name: '男性' }
-      ]
-    }
+        { item: "女性", name: "女性" },
+        { item: "男性", name: "男性" },
+      ],
+    };
   },
   methods: {
-    changeProfile (value) {
-      this.edit = value
-      this.nameModel = this.userName
-      this.emailModel = this.userEmail
-      this.addressModel = this.userAddress
-      this.phoneModel = this.userPhone
-      this.birthModel = this.useBirth
-      this.genderModel = this.useGender
+    changeProfile(value) {
+      this.edit = value;
+      this.nameModel = this.userName;
+      this.emailModel = this.userEmail;
+      this.addressModel = this.userAddress;
+      this.phoneModel = this.userPhone;
+      this.birthModel = this.useBirth;
+      this.genderModel = this.useGender;
     },
-    saveProfile () {
+    saveProfile() {
       this.axios
-        .patch(process.env.VUE_APP_API + '/users/' + this.$store.state.user._id, {
-          name: this.nameModel,
-          email: this.emailModel,
-          address: this.addressModel,
-          phone: this.phoneModel,
-          birth: this.birthModel,
-          gender: this.genderModel
-        })
+        .patch(
+          process.env.VUE_APP_API + "/users/" + this.$store.state.user._id,
+          {
+            name: this.nameModel,
+            email: this.emailModel,
+            address: this.addressModel,
+            phone: this.phoneModel,
+            birth: this.birthModel,
+            gender: this.genderModel,
+          }
+        )
         .then((res) => {
-          this.$store.commit('login', res.data.result)
-          this.$alert.success('修改資料成功')
-          this.userName = res.data.result.name
-          this.userEmail = res.data.result.email
-          this.userAddress = res.data.result.address
-          this.userPhone = res.data.result.phone
-          this.useBirth = res.data.result.birth
-          this.useGender = res.data.result.gender
-          this.nameModel = ''
-          this.emailModel = ''
-          this.addressModel = ''
-          this.phoneModel = ''
-          this.birthModel = ''
-          this.genderModel = '女性'
-          this.edit = true
+          this.$store.commit("login", res.data.result);
+          this.$alert.success("修改資料成功");
+          this.userName = res.data.result.name;
+          this.userEmail = res.data.result.email;
+          this.userAddress = res.data.result.address;
+          this.userPhone = res.data.result.phone;
+          this.useBirth = res.data.result.birth;
+          this.useGender = res.data.result.gender;
+          this.nameModel = "";
+          this.emailModel = "";
+          this.addressModel = "";
+          this.phoneModel = "";
+          this.birthModel = "";
+          this.genderModel = "女性";
+          this.edit = true;
         })
         .catch((error) => {
-          this.$alert.error(error.response.data.message)
-        })
+          this.$alert.error(error.response.data.message);
+        });
     },
-    getuserdetail () {
-    this.axios.get(process.env.VUE_APP_API + '/users/getuser/' + this.$store.state.user._id)
-      .then(res => {
-        this.userName = res.data.result.name
-        this.userEmail = res.data.result.email
-        this.userAddress = res.data.result.address
-        this.userPhone = res.data.result.phone
-        this.useBirth = res.data.result.birth
-        this.useGender = res.data.result.gender
-      })
-    }
+    getuserdetail() {
+      this.axios
+        .get(
+          process.env.VUE_APP_API +
+            "/users/getuser/" +
+            this.$store.state.user._id
+        )
+        .then((res) => {
+          this.userName = res.data.result.name;
+          this.userEmail = res.data.result.email;
+          this.userAddress = res.data.result.address;
+          this.userPhone = res.data.result.phone;
+          this.useBirth = res.data.result.birth;
+          this.useGender = res.data.result.gender;
+        });
+    },
   },
-  created () {
-    this.getuserdetail()
-  }
-}
+  created() {
+    this.getuserdetail();
+  },
+};
 </script>
 
 <style lang="stylus">

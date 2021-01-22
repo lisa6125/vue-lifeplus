@@ -1,171 +1,205 @@
 <template>
   <div id="Share" class="container-fluid p-0">
-    <Navbar :class="{nav_show:navshow,nav_close:navhide}" @change='controlcart'></Navbar>
+    <Navbar
+      :class="{ nav_show: navshow, nav_close: navhide }"
+      @change="controlcart"
+    ></Navbar>
     <div class="share-view">
       <div class="share-title">Share your life</div>
       <Photoswipe>
-        <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
-          <div v-masonry-tile class="item" v-for="(item, index) in shares" :key='index' >
+        <div
+          v-masonry="containerId"
+          transition-duration="0.3s"
+          item-selector=".item"
+        >
+          <div
+            v-masonry-tile
+            class="item"
+            v-for="(item, index) in shares"
+            :key="index"
+          >
             <div class="post">
-              <p>{{item.poster}}</p>
-              <img :src='item.src' v-pswp="item" alt="">
+              <p>{{ item.poster }}</p>
+              <img :src="item.src" v-pswp="item" alt="" />
             </div>
           </div>
         </div>
       </Photoswipe>
     </div>
-        <div class="cartddetail" :class='{hidecartddetail:!showcart}'>
+    <div class="cartddetail" :class="{ hidecartddetail: !showcart }">
       <table class="mt-5 p-3 w-100">
         <tr class="border-bottom w-100">
-          <td style="width:30%"></td>
-          <td style="width:25%" class="text-center">商品</td>
-          <td style="width:25%" class="text-center">售價</td>
-          <td style="width:20%" class="text-center">數量 </td>
-          <td style="width:5%" class="text-center"></td>
+          <td style="width: 30%"></td>
+          <td style="width: 25%" class="text-center">商品</td>
+          <td style="width: 25%" class="text-center">售價</td>
+          <td style="width: 20%" class="text-center">數量</td>
+          <td style="width: 5%" class="text-center"></td>
         </tr>
-        <tr class="border-bottom w-100 p-2" v-for='item in cart.products' @click='goDetail(item._id)' :key='item._id'>
-          <td style="width:30%" class="text-center p-3">
-            <img :src='item.src' class="w-100">
+        <tr
+          class="border-bottom w-100 p-2"
+          v-for="item in cart.products"
+          @click="goDetail(item._id)"
+          :key="item._id"
+        >
+          <td style="width: 30%" class="text-center p-3">
+            <img :src="item.src" class="w-100" />
           </td>
-          <td style="width:25%" class="text-center">{{item.name}}</td>
-          <td style="width:25%" class="text-center">NT &nbsp; {{item.price | thousands}}</td>
-          <td style="width:20%" class="text-center">{{item.quantity}} </td>
-          <td style="width:5%" class="text-center">
-            <i class="fas fa-times" @click.stop='removeProduct(item)'></i>
+          <td style="width: 25%" class="text-center">{{ item.name }}</td>
+          <td style="width: 25%" class="text-center">
+            NT &nbsp; {{ item.price | thousands }}
+          </td>
+          <td style="width: 20%" class="text-center">{{ item.quantity }}</td>
+          <td style="width: 5%" class="text-center">
+            <i class="fas fa-times" @click.stop="removeProduct(item)"></i>
           </td>
         </tr>
         <tr>
-          <td class="px-5 py-2 text-right" colspan="5">總價: {{cart.totalPrice | thousands}}</td>
+          <td class="px-5 py-2 text-right" colspan="5">
+            總價: {{ cart.totalPrice | thousands }}
+          </td>
         </tr>
         <tr>
           <td class="p-5" colspan="5">
-            <b-btn class=" m-1 w-100" @click="goCheack">訂單結帳</b-btn>
+            <b-btn class="m-1 w-100" @click="goCheack">訂單結帳</b-btn>
           </td>
         </tr>
       </table>
     </div>
-    <div class="mask" @click='showcart = false' :class='{hidemask:!showcart}'></div>
+    <div
+      class="mask"
+      @click="showcart = false"
+      :class="{ hidemask: !showcart }"
+    ></div>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Navbar from '../components/main/navbar'
-import Footer from '../components/main/footer'
+import { mapGetters } from "vuex";
+import Navbar from "../components/main/navbar";
+import Footer from "../components/main/footer";
 export default {
-  components: { Footer,Navbar },
-  name: 'Share',
-  data(){
+  components: { Footer, Navbar },
+  name: "Share",
+  data() {
     return {
       navshow: true,
-      navhide:false,
+      navhide: false,
       lastScrollTop: 0,
-      showcart:false,
-      shares:[]
-    }
+      showcart: false,
+      shares: [],
+    };
   },
   computed: {
-    ...mapGetters('favoritesModules', ['favorites']),
-    ...mapGetters('cartModules', ['cart'])
+    ...mapGetters("favoritesModules", ["favorites"]),
+    ...mapGetters("cartModules", ["cart"]),
   },
   methods: {
-    controlcart(val){
-      this.showcart=val
+    controlcart(val) {
+      this.showcart = val;
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`)
+      this.$router.push(`/productdetail/${id}`);
     },
     goCheack() {
-      if(this.$store.state.user.account.length>0){
-        this.$router.push(`/checkorder`)
-      }else{
-        this.$alert.warning('請先登入後結帳')
-        this.$router.push(`/login`)
+      if (this.$store.state.user.account.length > 0) {
+        this.$router.push(`/checkorder`);
+      } else {
+        this.$alert.warning("請先登入後結帳");
+        this.$router.push(`/login`);
       }
     },
     addFaver(product) {
-      this.$alert.totasTopEnd(product.productName , '已加入最愛', product.src1)
+      this.$alert.totasTopEnd(product.productName, "已加入最愛", product.src1);
     },
     // 判斷顯示/隱藏關注樣式
     setliked(item) {
-      const liked = this.favorites.filter(favor => favor._id === item._id)
+      const liked = this.favorites.filter((favor) => favor._id === item._id);
       if (liked.length > 0) {
-        return true
+        return true;
       }
-      return false
+      return false;
     },
     // 變更喜愛的商品資料(新增/移除)
     changeFavorite(product) {
-      this.$store.dispatch('favoritesModules/changeFavorite', product)
-      const liked = this.favorites.filter(favor => favor._id === product._id)
+      this.$store.dispatch("favoritesModules/changeFavorite", product);
+      const liked = this.favorites.filter((favor) => favor._id === product._id);
       if (liked.length > 0) {
-        this.$alert.totasTopEnd(product.productName + ' x ' + 1, '已加入購物車', product.src1)
-      }else{
-        this.$alert.totasTopEnd(product.productName ,'已移除最愛',)
+        this.$alert.totasTopEnd(
+          product.productName + " x " + 1,
+          "已加入購物車",
+          product.src1
+        );
+      } else {
+        this.$alert.totasTopEnd(product.productName, "已移除最愛");
       }
     },
     nav() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       // console.log(scrollTop)
       if (scrollTop > this.lastScrollTop) {
-        this.navshow = false
-        this.navhide = true
+        this.navshow = false;
+        this.navhide = true;
       } else {
-        this.navshow = true
-        this.navhide = false
+        this.navshow = true;
+        this.navhide = false;
       }
-      this.lastScrollTop = scrollTop
+      this.lastScrollTop = scrollTop;
     },
     addProduct(product) {
       const data = {
-          _id: product._id,
-          name: product.productName,
-          src: product.src1,
-          price: product.price,
-          quantity: 1
-      }
-      this.$alert.totasTopEnd(product.productName + ' x ' + '1', '已加入購物車', product.src1)
-      this.$store.dispatch('cartModules/addProduct',data)
+        _id: product._id,
+        name: product.productName,
+        src: product.src1,
+        price: product.price,
+        quantity: 1,
+      };
+      this.$alert.totasTopEnd(
+        product.productName + " x " + "1",
+        "已加入購物車",
+        product.src1
+      );
+      this.$store.dispatch("cartModules/addProduct", data);
     },
     removeProduct(product) {
       const data = {
-        _id: product._id
-      }
-      this.$alert.totasTopEnd(product.productName , '已移除購物車',)
-      this.$store.dispatch('cartModules/removeProduct',data)
+        _id: product._id,
+      };
+      this.$alert.totasTopEnd(product.productName, "已移除購物車");
+      this.$store.dispatch("cartModules/removeProduct", data);
     },
     updateProduct(product) {
       const data = {
         _id: product._id,
-        quantity: 1 //這裡要綁定，還沒寫
-      }
-      this.$alert.totasTopEnd(product.productName , '已更新購物車',)
-      this.$store.dispatch('cartModules/updateProduct',data)
+        quantity: 1, //這裡要綁定，還沒寫
+      };
+      this.$alert.totasTopEnd(product.productName, "已更新購物車");
+      this.$store.dispatch("cartModules/updateProduct", data);
     },
-    getshares () {
-      this.axios.get(process.env.VUE_APP_API + '/shares/')
-      .then(res => {
-        let postshare = res.data.result.filter((e)=>{
-          return e.onshare === '審核通過'
-        })
-        this.shares = postshare.map(e=>{
-          e.src = process.env.VUE_APP_API + '/shares/images/' + e.images[0].file
-          return e
-        })
-      })
-    }
+    getshares() {
+      this.axios.get(process.env.VUE_APP_API + "/shares/").then((res) => {
+        let postshare = res.data.result.filter((e) => {
+          return e.onshare === "審核通過";
+        });
+        this.shares = postshare.map((e) => {
+          e.src =
+            process.env.VUE_APP_API + "/shares/images/" + e.images[0].file;
+          return e;
+        });
+      });
+    },
   },
-  created () {
-    this.getshares()
+  created() {
+    this.getshares();
   },
-  mounted () {
-    window.addEventListener('scroll', this.nav)
+  mounted() {
+    window.addEventListener("scroll", this.nav);
   },
-  destroyed () {
-    window.removeEventListener('scroll', this.nav)
-  }
-}
+  destroyed() {
+    window.removeEventListener("scroll", this.nav);
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

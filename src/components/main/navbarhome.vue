@@ -1,118 +1,251 @@
 <template>
-<div id="mainnav">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <router-link class="navbar-brand" :to="`/`">
-      <img class="logo" src="@/assets/images/LOGO.png" alt="">
-    </router-link>
-    <div class="navbar-new d-flex flex-sm-wrap justify-content-between flex-grow-1">
-      <div class="navbar-nav d-flex flex-row justify-content-between">
-        <router-link class="nav-item nav-link" :to="`/`">Home</router-link>
-        <router-link class="nav-item nav-link" :to="`/products/all`">Products</router-link>
-        <router-link class="nav-item nav-link" :to="`/share`">Share</router-link>
-      </div>
-      <div class="navbar-nav d-flex flex-row justify-content-between">
-        <div class="dropdown" id="faver">
-          <li class="dropdown-toggle nav-item nav-link" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <font-awesome-icon :icon="['fas','heart']" size="lg"></font-awesome-icon>
-              <span v-if="favorLength > 0">{{ favorLength }}</span>
-          </li>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <table class="itemContent w-100">
-              <tbody class="d-flex justify-content-start align-items-center flex-column">
-                <h3 class="itemTitle" v-if='favorLength === 0'>還沒有喜歡的商品嗎?</h3>
-                <h3 class="itemTitle" v-else>MY FAVER</h3>
-                <tr class="w-100 border-bottom py-2" v-for="item in favorites" :key="item._id" @click="goDetail(item._id)">
-                  <td width="15%" class="text-center">
-                    <i class="fas fa-cart-plus cartIcon"  @click.stop="addProduct(item)"></i>
-                  </td>
-                  <td width="20%" class="itemPicture">
-                    <div class="picturewrap">
-                      <img :src="item.src1" alt="">
-                    </div>
-                  </td>
-                  <td class="itemName">
-                    <p class="d-block">{{ item.productName }}</p></td>
-                  <td width="10%" class="itemDelete" >
-                    <div class="delfaver d-inline-block text-center" style="cursor: pointer" @click.stop="removeFavorItem(item)">X</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  <div id="mainnav">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <router-link class="navbar-brand" :to="`/`">
+        <img class="logo" src="@/assets/images/LOGO.png" alt="" />
+      </router-link>
+      <div
+        class="navbar-new d-flex flex-sm-wrap justify-content-between flex-grow-1"
+      >
+        <div class="navbar-nav d-flex flex-row justify-content-between">
+          <router-link class="nav-item nav-link" :to="`/`">Home</router-link>
+          <router-link class="nav-item nav-link" :to="`/products/all`"
+            >Products</router-link
+          >
+          <router-link class="nav-item nav-link" :to="`/share`"
+            >Share</router-link
+          >
         </div>
-        <!-- <a class="nav-item nav-link" href="#">
+        <div class="navbar-nav d-flex flex-row justify-content-between">
+          <div class="dropdown" id="faver">
+            <li
+              class="dropdown-toggle nav-item nav-link"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'heart']"
+                size="lg"
+              ></font-awesome-icon>
+              <span v-if="favorLength > 0">{{ favorLength }}</span>
+            </li>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <table class="itemContent w-100">
+                <tbody
+                  class="d-flex justify-content-start align-items-center flex-column"
+                >
+                  <h3 class="itemTitle" v-if="favorLength === 0">
+                    還沒有喜歡的商品嗎?
+                  </h3>
+                  <h3 class="itemTitle" v-else>MY FAVER</h3>
+                  <tr
+                    class="w-100 border-bottom py-2"
+                    v-for="item in favorites"
+                    :key="item._id"
+                    @click="goDetail(item._id)"
+                  >
+                    <td width="15%" class="text-center">
+                      <i
+                        class="fas fa-cart-plus cartIcon"
+                        @click.stop="addProduct(item)"
+                      ></i>
+                    </td>
+                    <td width="20%" class="itemPicture">
+                      <div class="picturewrap">
+                        <img :src="item.src1" alt="" />
+                      </div>
+                    </td>
+                    <td class="itemName">
+                      <p class="d-block">{{ item.productName }}</p>
+                    </td>
+                    <td width="10%" class="itemDelete">
+                      <div
+                        class="delfaver d-inline-block text-center"
+                        style="cursor: pointer"
+                        @click.stop="removeFavorItem(item)"
+                      >
+                        X
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- <a class="nav-item nav-link" href="#">
           MyFaver&nbsp;
               <font-awesome-icon :icon="['fas','heart']" size="lg"></font-awesome-icon>
               <span v-if="favorLength > 0">{{ favorLength }}</span>
         </a> -->
-        <a class="nav-item nav-link" @click.stop='change'>
-              <font-awesome-icon :icon="['fas','shopping-cart']" size="lg"></font-awesome-icon>
-              <span class="cartamount" v-if="cart.totalAmount > 0">{{cart.totalAmount}}</span>
-        </a>
-        <router-link class="nav-item nav-link" :to="`/login`" v-if="user.account.length === 0">
-              <font-awesome-icon :icon="['fas','user']" size="lg"></font-awesome-icon>
-        </router-link>
-        <div class="dropdown d-flex flex-column justify-content-center align-items-center" id="account">
-          <a class="dropdown-toggle nav-item nav-link" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="user.account.length > 0 && user.right===false">
-                <font-awesome-icon :icon="['fas','user']" size="lg"></font-awesome-icon>
+          <a class="nav-item nav-link" @click.stop="change">
+            <font-awesome-icon
+              :icon="['fas', 'shopping-cart']"
+              size="lg"
+            ></font-awesome-icon>
+            <span class="cartamount" v-if="cart.totalAmount > 0">{{
+              cart.totalAmount
+            }}</span>
           </a>
-            <div class="account dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <router-link
+            class="nav-item nav-link"
+            :to="`/login`"
+            v-if="user.account.length === 0"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'user']"
+              size="lg"
+            ></font-awesome-icon>
+          </router-link>
+          <div
+            class="dropdown d-flex flex-column justify-content-center align-items-center"
+            id="account"
+          >
+            <a
+              class="dropdown-toggle nav-item nav-link"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              v-if="user.account.length > 0 && user.right === false"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'user']"
+                size="lg"
+              ></font-awesome-icon>
+            </a>
+            <div
+              class="account dropdown-menu"
+              aria-labelledby="dropdownMenuLink"
+            >
               <router-link class="nav-link text-center m-2" :to="`/custom`">
-              <font-awesome-icon :icon="['fas','archive']" size="lg"></font-awesome-icon>&ensp;個人資料
+                <font-awesome-icon
+                  :icon="['fas', 'archive']"
+                  size="lg"
+                ></font-awesome-icon
+                >&ensp;個人資料
               </router-link>
-              <router-link class="nav-link text-center m-2" :to="`/custom/orderdetail`">
-              <font-awesome-icon :icon="['fas','pen-nib']" size="lg"></font-awesome-icon>&ensp;訂單查詢
+              <router-link
+                class="nav-link text-center m-2"
+                :to="`/custom/orderdetail`"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'pen-nib']"
+                  size="lg"
+                ></font-awesome-icon
+                >&ensp;訂單查詢
               </router-link>
-              <router-link class="nav-link text-center m-2" :to="`/custom/sharedetail`">
-              <font-awesome-icon :icon="['fas','id-card']" size="lg"></font-awesome-icon>&ensp;
-              分享回饋
+              <router-link
+                class="nav-link text-center m-2"
+                :to="`/custom/sharedetail`"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'id-card']"
+                  size="lg"
+                ></font-awesome-icon
+                >&ensp; 分享回饋
               </router-link>
             </div>
+          </div>
+          <router-link
+            class="nav-item nav-link"
+            :to="`/admin`"
+            v-if="user.account.length > 0 && user.right === true"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'user']"
+              size="lg"
+            ></font-awesome-icon>
+          </router-link>
+          <a
+            id="logout"
+            class="nav-item nav-link"
+            href="#"
+            v-if="user.account.length > 0"
+            @click="logout"
+          >
+            Logout
+          </a>
         </div>
-        <router-link class="nav-item nav-link" :to="`/admin`" v-if="user.account.length > 0 && user.right===true">
-              <font-awesome-icon :icon="['fas','user']" size="lg"></font-awesome-icon>
-        </router-link>
-        <a id="logout" class="nav-item nav-link" href="#" v-if="user.account.length > 0" @click="logout">
-          Logout
-        </a>
+        <div class="nav-icon">
+          <i class="fas fa-bars mr-3" @click="shownew = !shownew"></i>
+        </div>
       </div>
-      <div class="nav-icon">
-        <i class="fas fa-bars mr-3" @click="shownew = !shownew"></i>
-      </div>
-    </div>
       <div class="new_version_navbar" v-show="shownew">
         <div class="new-navbar-nav d-flex flex-row justify-content-between">
           <router-link class="nav-item nav-link" :to="`/`">Home</router-link>
-          <router-link class="nav-item nav-link" :to="`/products/all`">Products</router-link>
-          <router-link class="nav-item nav-link" :to="`/share`">Share</router-link>
-          <a id="logout" class="nav-item nav-link" href="#" v-if="user.account.length > 0" @click="logout">
+          <router-link class="nav-item nav-link" :to="`/products/all`"
+            >Products</router-link
+          >
+          <router-link class="nav-item nav-link" :to="`/share`"
+            >Share</router-link
+          >
+          <a
+            id="logout"
+            class="nav-item nav-link"
+            href="#"
+            v-if="user.account.length > 0"
+            @click="logout"
+          >
             Logout
           </a>
         </div>
         <div class="new-navbar-nav d-flex flex-row justify-content-center mt-3">
           <div class="dropdown" id="faver">
-            <li class="dropdown-toggle nav-item nav-link" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <font-awesome-icon :icon="['fas','heart']" size="lg"></font-awesome-icon>
-                <span v-if="favorLength > 0">{{ favorLength }}</span>
+            <li
+              class="dropdown-toggle nav-item nav-link"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'heart']"
+                size="lg"
+              ></font-awesome-icon>
+              <span v-if="favorLength > 0">{{ favorLength }}</span>
             </li>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <table class="itemContent w-100">
-                <tbody class="d-flex justify-content-start align-items-center flex-column">
-                  <h3 class="itemTitle" v-if='favorLength === 0'>還沒有喜歡的商品嗎?</h3>
+                <tbody
+                  class="d-flex justify-content-start align-items-center flex-column"
+                >
+                  <h3 class="itemTitle" v-if="favorLength === 0">
+                    還沒有喜歡的商品嗎?
+                  </h3>
                   <h3 class="itemTitle" v-else>MY FAVER</h3>
-                  <tr class="w-100 border-bottom py-2" v-for="item in favorites" :key="item._id" @click="goDetail(item._id)">
+                  <tr
+                    class="w-100 border-bottom py-2"
+                    v-for="item in favorites"
+                    :key="item._id"
+                    @click="goDetail(item._id)"
+                  >
                     <td width="15%" class="text-center">
-                      <i class="fas fa-cart-plus cartIcon"  @click.stop="addProduct(item)"></i>
+                      <i
+                        class="fas fa-cart-plus cartIcon"
+                        @click.stop="addProduct(item)"
+                      ></i>
                     </td>
                     <td width="20%" class="itemPicture">
                       <div class="picturewrap">
-                        <img :src="item.src1" alt="">
+                        <img :src="item.src1" alt="" />
                       </div>
                     </td>
                     <td class="itemName">
-                      <p class="d-block">{{ item.productName }}</p></td>
-                    <td width="10%" class="itemDelete" >
-                      <div class="delfaver d-inline-block text-center" style="cursor: pointer" @click.stop="removeFavorItem(item)">X</div>
+                      <p class="d-block">{{ item.productName }}</p>
+                    </td>
+                    <td width="10%" class="itemDelete">
+                      <div
+                        class="delfaver d-inline-block text-center"
+                        style="cursor: pointer"
+                        @click.stop="removeFavorItem(item)"
+                      >
+                        X
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -124,37 +257,94 @@
                 <font-awesome-icon :icon="['fas','heart']" size="lg"></font-awesome-icon>
                 <span v-if="favorLength > 0">{{ favorLength }}</span>
           </a> -->
-          <a id="cart" class="nav-item nav-link align-self-center" @click.stop='change'>
-                <font-awesome-icon :icon="['fas','shopping-cart']" size="lg"></font-awesome-icon>
-                <span class="cartamount" v-if="cart.totalAmount > 0">{{cart.totalAmount}}</span>
+          <a
+            id="cart"
+            class="nav-item nav-link align-self-center"
+            @click.stop="change"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'shopping-cart']"
+              size="lg"
+            ></font-awesome-icon>
+            <span class="cartamount" v-if="cart.totalAmount > 0">{{
+              cart.totalAmount
+            }}</span>
           </a>
-          <router-link class="nav-item nav-link align-self-center" :to="`/login`" v-if="user.account.length === 0">
-                <font-awesome-icon :icon="['fas','user']" size="lg"></font-awesome-icon>
+          <router-link
+            class="nav-item nav-link align-self-center"
+            :to="`/login`"
+            v-if="user.account.length === 0"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'user']"
+              size="lg"
+            ></font-awesome-icon>
           </router-link>
-          <div class="dropdown d-flex flex-column justify-content-center align-items-center" id="account">
-            <a class="dropdown-toggle nav-item nav-link" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="user.account.length > 0 && user.right===false">
-                  <font-awesome-icon :icon="['fas','user']" size="lg"></font-awesome-icon>
+          <div
+            class="dropdown d-flex flex-column justify-content-center align-items-center"
+            id="account"
+          >
+            <a
+              class="dropdown-toggle nav-item nav-link"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              v-if="user.account.length > 0 && user.right === false"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'user']"
+                size="lg"
+              ></font-awesome-icon>
             </a>
-              <div class="account dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <router-link class="nav-link text-center m-2" :to="`/custom`">
-                <font-awesome-icon :icon="['fas','archive']" size="lg"></font-awesome-icon>&ensp;個人資料
-                </router-link>
-                <router-link class="nav-link text-center m-2" :to="`/custom/orderdetail`">
-                <font-awesome-icon :icon="['fas','pen-nib']" size="lg"></font-awesome-icon>&ensp;訂單查詢
-                </router-link>
-                <router-link class="nav-link text-center m-2" :to="`/custom/sharedetail`">
-                <font-awesome-icon :icon="['fas','id-card']" size="lg"></font-awesome-icon>&ensp;
-                分享回饋
-                </router-link>
-              </div>
+            <div
+              class="account dropdown-menu"
+              aria-labelledby="dropdownMenuLink"
+            >
+              <router-link class="nav-link text-center m-2" :to="`/custom`">
+                <font-awesome-icon
+                  :icon="['fas', 'archive']"
+                  size="lg"
+                ></font-awesome-icon
+                >&ensp;個人資料
+              </router-link>
+              <router-link
+                class="nav-link text-center m-2"
+                :to="`/custom/orderdetail`"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'pen-nib']"
+                  size="lg"
+                ></font-awesome-icon
+                >&ensp;訂單查詢
+              </router-link>
+              <router-link
+                class="nav-link text-center m-2"
+                :to="`/custom/sharedetail`"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'id-card']"
+                  size="lg"
+                ></font-awesome-icon
+                >&ensp; 分享回饋
+              </router-link>
+            </div>
           </div>
-          <router-link class="nav-item nav-link align-self-center" :to="`/admin`" v-if="user.account.length > 0 && user.right===true">
-                <font-awesome-icon :icon="['fas','user']" size="lg"></font-awesome-icon>
+          <router-link
+            class="nav-item nav-link align-self-center"
+            :to="`/admin`"
+            v-if="user.account.length > 0 && user.right === true"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'user']"
+              size="lg"
+            ></font-awesome-icon>
           </router-link>
         </div>
       </div>
-  </nav>
-</div>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -171,84 +361,89 @@
 //   }
 //   lastScrollTop = scrollTop
 // })
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
-  name: 'Navbarhome',
-  data () {
+  name: "Navbarhome",
+  data() {
     return {
-      shownew:false
-    }
+      shownew: false,
+    };
   },
   computed: {
-    user () {
-      return this.$store.state.user
+    user() {
+      return this.$store.state.user;
     },
-    ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
-    ...mapGetters('cartModules', ['cart'])
+    ...mapGetters("favoritesModules", ["favorites", "favorLength"]),
+    ...mapGetters("cartModules", ["cart"]),
   },
   methods: {
-    logout () {
-      this.axios.delete(process.env.VUE_APP_API + '/users/logout')
-        .then(res => {
+    logout() {
+      this.axios
+        .delete(process.env.VUE_APP_API + "/users/logout")
+        .then((res) => {
           // 如果登出成功
           if (res.data.success) {
-            this.$alert.success('登出成功')
+            this.$alert.success("登出成功");
 
             // 清除 vuex
-            this.$store.commit('logout')
+            this.$store.commit("logout");
 
             // 導回首頁
-            if (this.$route.path !== '/') {
-              this.$router.push('/')
+            if (this.$route.path !== "/") {
+              this.$router.push("/");
             }
           } else {
-            this.$alert.error(res.data.message)
+            this.$alert.error(res.data.message);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           // 如果回來的狀態碼不是 200，直接 alert 錯誤訊息
-          this.$alert.error(error.response.data.message)
-        })
+          this.$alert.error(error.response.data.message);
+        });
     },
     addProduct(product) {
       const data = {
-          _id: product._id,
-          name: product.productName,
-          src: product.src1,
-          price: product.price,
-          quantity: 1
-      }
-      this.$alert.totasTopEnd(product.productName + ' x ' + '1', '已加入購物車', product.src1)
-      this.$store.dispatch('cartModules/addProduct',data)
+        _id: product._id,
+        name: product.productName,
+        src: product.src1,
+        price: product.price,
+        quantity: 1,
+      };
+      this.$alert.totasTopEnd(
+        product.productName + " x " + "1",
+        "已加入購物車",
+        product.src1
+      );
+      this.$store.dispatch("cartModules/addProduct", data);
     },
     // 移除喜歡的商品
     removeFavorItem(product) {
       const index = this.favorites.indexOf(product);
-      this.$store.commit('favoritesModules/REMOVEFAVORITEM', index)
+      this.$store.commit("favoritesModules/REMOVEFAVORITEM", index);
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`)
+      this.$router.push(`/productdetail/${id}`);
     },
     removeProduct(product) {
       const data = {
-        _id: product._id
-      }
-      this.$alert.totasTopEnd(product.productName , '已移除購物車',)
-      this.$store.dispatch('cartModules/removeProduct',data)
+        _id: product._id,
+      };
+      this.$alert.totasTopEnd(product.productName, "已移除購物車");
+      this.$store.dispatch("cartModules/removeProduct", data);
     },
     updateProduct(product) {
       const data = {
         _id: product._id,
-        quantity: 1 //這裡要綁定，還沒寫
-      }
-      this.$alert.totasTopEnd(product.productName , '已更新購物車',)
-      this.$store.dispatch('cartModules/updateProduct',data)
+        quantity: 1, //這裡要綁定，還沒寫
+      };
+      this.$alert.totasTopEnd(product.productName, "已更新購物車");
+      this.$store.dispatch("cartModules/updateProduct", data);
     },
     change() {
-      this.$emit('change',true)
-    }
-  }
-}
+      this.$emit("change", true);
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
