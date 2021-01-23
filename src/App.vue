@@ -8,12 +8,12 @@ import '../src/assets/css/variable.scss'
 export default {
   name: 'App',
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     }
   },
   methods: {
-    logout() {
+    logout () {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
@@ -36,7 +36,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    heartbeat() {
+    heartbeat () {
       this.axios
         .get('http://localhost:3000' + '/users/heartbeat')
         .then(res => {
@@ -56,6 +56,7 @@ export default {
         })
         .catch(err => {
           this.$alert.error('發生錯誤')
+          console.log(err)
           // 登出
           this.$store.commit('logout')
           // 導回首頁
@@ -65,7 +66,7 @@ export default {
         })
     }
   },
-  mounted() {
+  mounted () {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()

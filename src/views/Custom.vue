@@ -63,7 +63,7 @@ export default {
     Navbar
   },
   name: 'Custom',
-  data() {
+  data () {
     return {
       showcart: false
     }
@@ -73,18 +73,18 @@ export default {
     ...mapGetters('cartModules', ['cart'])
   },
   methods: {
-    controlcart(val) {
+    controlcart (val) {
       this.showcart = val
     },
-    goCheack() {
+    goCheack () {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`)
+        this.$router.push('/checkorder')
       } else {
         this.$alert.warning('請先登入後結帳')
-        this.$router.push(`/login`)
+        this.$router.push('/login')
       }
     },
-    addProduct(product) {
+    addProduct (product) {
       const data = {
         _id: product._id,
         name: product.productName,
@@ -100,16 +100,16 @@ export default {
       this.$store.dispatch('cartModules/addProduct', data)
     },
     // 移除喜歡的商品
-    removeFavorItem(product) {
+    removeFavorItem (product) {
       const index = this.favorites.indexOf(product)
       this.$store.commit('favoritesModules/REMOVEFAVORITEM', index)
     },
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    removeProduct(product) {
+    removeProduct (product) {
       const data = {
-        _id: product._id,
+        _id: product._id
       }
       this.$alert.totasTopEnd(product.productName, '已移除購物車')
       this.$store.dispatch('cartModules/removeProduct', data)

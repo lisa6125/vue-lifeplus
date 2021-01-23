@@ -2,11 +2,11 @@ export default {
   namespaced: true,
   state: {
     favorites: [], // 喜歡商品資料
-    favorLength: 0, // 喜歡商品資料筆數
+    favorLength: 0 // 喜歡商品資料筆數
   },
   actions: {
     // 變更喜愛的商品資料(新增/移除)
-    changeFavorite(context, product) {
+    changeFavorite (context, product) {
       let delIndex = -1 // 儲存有在 favorites 中資料的 index
 
       if (context.state.favorites.length > 0) {
@@ -30,7 +30,7 @@ export default {
 
       // // 重新整理
       // context.commit('FAVORITES')
-    },
+    }
   },
   mutations: {
     // FAVORITES(state) {
@@ -42,17 +42,17 @@ export default {
     // FAVORITESLENGTH(state) {
     //   state.favorLength = state.favorites.length
     // },
-    ADDTOFAVORITES(state, item) {
+    ADDTOFAVORITES (state, item) {
       state.favorites.push(item)
       state.favorLength = state.favorites.length
     },
-    REMOVEFAVORITEM(state, delIndex) {
+    REMOVEFAVORITEM (state, delIndex) {
       state.favorites.splice(delIndex, 1)
       state.favorLength = state.favorites.length
     }
   },
   getters: {
     favorites: state => state.favorites,
-    favorLength: state => state.favorLength,
-  },
+    favorLength: state => state.favorLength
+  }
 }

@@ -102,7 +102,7 @@
 <script>
 export default {
   name: 'ShareDetail',
-  data() {
+  data () {
     return {
       description: '',
       file: null,
@@ -112,7 +112,7 @@ export default {
     }
   },
   methods: {
-    uploadFile() {
+    uploadFile () {
       this.image = []
       this.priviewPic = []
       for (const i of this.$refs.fileInput.files) {
@@ -142,7 +142,7 @@ export default {
       }
       // console.log(this.priviewPic)
     },
-    submit() {
+    submit () {
       const fd = new FormData()
       fd.append('poster', this.$store.state.user.account)
       fd.append('title', this.description)
@@ -170,7 +170,7 @@ export default {
           })
         })
     },
-    getshares() {
+    getshares () {
       this.axios
         .get(
           process.env.VUE_APP_API +
@@ -185,7 +185,7 @@ export default {
           })
         })
     },
-    del(item, idx) {
+    del (item, idx) {
       this.axios
         .delete(process.env.VUE_APP_API + '/shares/' + item._id)
         .then(res => {
@@ -201,7 +201,7 @@ export default {
         })
     }
   },
-  created() {
+  created () {
     this.getshares()
   }
 }

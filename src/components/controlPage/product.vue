@@ -163,7 +163,7 @@
 <script>
 export default {
   name: 'ControlProduct',
-  data() {
+  data () {
     return {
       productName: '',
       type: '',
@@ -178,7 +178,7 @@ export default {
     }
   },
   computed: {
-    descState() {
+    descState () {
       if (this.description.length === 0) {
         return null
       } else if (this.description.length > 1000) {
@@ -189,7 +189,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       const fd = new FormData()
       fd.append('productName', this.productName)
       fd.append('type', this.type)
@@ -240,7 +240,7 @@ export default {
           })
         })
     },
-    cancel(product) {
+    cancel (product) {
       product.edit = false
       product.productNameModel = product.productName
       product.typeModel = product.type
@@ -249,7 +249,7 @@ export default {
       product.onsaleModel = product.onsale
       product.descriptionModel = product.description
     },
-    save(product) {
+    save (product) {
       this.axios
         .patch(process.env.VUE_APP_API + '/products/' + product._id, {
           productName: product.productNameModel,
@@ -274,10 +274,10 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    edit(product) {
+    edit (product) {
       product.edit = true
     },
-    del(product, idx) {
+    del (product, idx) {
       this.axios
         .delete(process.env.VUE_APP_API + '/products/' + product._id)
         .then(res => {
@@ -292,7 +292,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    uploadFile() {
+    uploadFile () {
       this.image = []
       this.priviewPic = []
       for (const i of this.$refs.fileInput.files) {
@@ -323,7 +323,7 @@ export default {
       // console.log(this.priviewPic)
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/products/')
       .then(res => {

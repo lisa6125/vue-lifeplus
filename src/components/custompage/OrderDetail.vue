@@ -161,7 +161,7 @@
 <script>
 export default {
   name: 'OrderDetail',
-  data() {
+  data () {
     return {
       userorders: [],
       changelist: false,
@@ -170,7 +170,7 @@ export default {
     }
   },
   methods: {
-    getorders() {
+    getorders () {
       this.axios
         .get(
           process.env.VUE_APP_API + '/orders/' + this.$store.state.user.account
@@ -182,7 +182,7 @@ export default {
           })
         })
     },
-    liststatus() {
+    liststatus () {
       this.userorders = this.userorders.reverse()
       if (this.changelist) {
         this.changelist = false
@@ -190,10 +190,10 @@ export default {
         this.changelist = true
       }
     },
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    submit() {
+    submit () {
       this.axios
         .patch(process.env.VUE_APP_API + '/orders/ask/' + this.askitem, {
           userask: this.askquestion,
@@ -213,7 +213,7 @@ export default {
       this.$alert.success('新增問題成功')
     }
   },
-  created() {
+  created () {
     this.getorders()
   }
 }

@@ -47,7 +47,7 @@ export default {
     Navbar
   },
   name: 'login',
-  data() {
+  data () {
     return {
       name: '',
       account: '',
@@ -61,7 +61,7 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       this.axios
         .post(process.env.VUE_APP_API + '/users/login', this.$data)
         .then(res => {
@@ -83,7 +83,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    onSubmit_reg() {
+    onSubmit_reg () {
       this.axios
         .post(process.env.VUE_APP_API + '/users/', this.$data)
         .then(res => {
@@ -99,7 +99,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    showchick(c) {
+    showchick (c) {
       if (c === true) {
         this.status.bounceRight = true
         this.status.bounceLeft = false

@@ -185,7 +185,7 @@
 <script>
 export default {
   name: 'ControlOder',
-  data() {
+  data () {
     return {
       allorders: [],
       changelist: false,
@@ -193,7 +193,7 @@ export default {
     }
   },
   computed: {
-    orderfilter() {
+    orderfilter () {
       if (this.filter === '') {
         return this.allorders
       } else {
@@ -204,7 +204,7 @@ export default {
     }
   },
   methods: {
-    getallorder() {
+    getallorder () {
       this.axios.get(process.env.VUE_APP_API + '/orders').then(res => {
         this.allorders = res.data.result.map(item => {
           item.payModel = item.pay
@@ -215,7 +215,7 @@ export default {
         })
       })
     },
-    liststatus() {
+    liststatus () {
       this.allorders = this.allorders.reverse()
       if (this.changelist) {
         this.changelist = false
@@ -223,10 +223,10 @@ export default {
         this.changelist = true
       }
     },
-    edit(order) {
+    edit (order) {
       order.edit = true
     },
-    save(order) {
+    save (order) {
       this.axios
         .patch(process.env.VUE_APP_API + '/orders/' + order.item, {
           pay: order.payModel,
@@ -242,18 +242,18 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    cancel(order) {
+    cancel (order) {
       order.payModel = order.pay
       order.statusModel = order.status
       order.edit = false
     },
-    del(order, index) {
+    del (order, index) {
       this.axios
         .delete(process.env.VUE_APP_API + '/orders/' + order.item)
         .then(res => {
           if (res.data.success) {
             this.orderfilter.splice(index, 1)
-            let idx = this.allorders.indexOf(order)
+            const idx = this.allorders.indexOf(order)
             this.allorders.splice(idx, 1)
             this.$alert.success('刪除成功')
           } else {
@@ -265,7 +265,7 @@ export default {
         })
     }
   },
-  created() {
+  created () {
     this.getallorder()
   }
 }

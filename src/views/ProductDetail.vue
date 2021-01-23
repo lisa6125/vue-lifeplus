@@ -203,7 +203,7 @@ export default {
     Navbar,
     Footer
   },
-  data() {
+  data () {
     return {
       product: [],
       sameproducts: [],
@@ -220,13 +220,13 @@ export default {
     ...mapGetters('cartModules', ['cart'])
   },
   methods: {
-    goback() {
+    goback () {
       this.$router.go(-1)
     },
-    controlcart(val) {
+    controlcart (val) {
       this.showcart = val
     },
-    count(val) {
+    count (val) {
       if (this.quantity === 1 && parseInt(val) < 0) {
         this.quantity = 1
       } else {
@@ -234,7 +234,7 @@ export default {
         this.quantity += parseInt(val)
       }
     },
-    getProduct() {
+    getProduct () {
       this.axios
         .get(
           process.env.VUE_APP_API +
@@ -259,7 +259,7 @@ export default {
           }
         })
     },
-    getProducts() {
+    getProducts () {
       this.axios.get(process.env.VUE_APP_API + '/products/').then(res => {
         this.sameproducts = res.data.result.filter(item => {
           return (
@@ -292,18 +292,18 @@ export default {
         })
       })
     },
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    goCheack() {
+    goCheack () {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`)
+        this.$router.push('/checkorder')
       } else {
         this.$alert.warning('請先登入後結帳')
-        this.$router.push(`/login`)
+        this.$router.push('/login')
       }
     },
-    addProduct(product) {
+    addProduct (product) {
       const data = {
         _id: product._id,
         name: product.productName,
@@ -319,23 +319,23 @@ export default {
       this.quantity = 1
       // this.showcart = true
     },
-    removeProduct(product) {
+    removeProduct (product) {
       const data = {
-        _id: product._id,
+        _id: product._id
       }
       this.$alert.totasTopEnd(product.productName, '已移除購物車')
       this.$store.dispatch('cartModules/removeProduct', data)
     },
-    updateProduct(product) {
+    updateProduct (product) {
       const data = {
         _id: product._id,
-        quantity: 1, //這裡要綁定，還沒寫
+        quantity: 1 // 這裡要綁定，還沒寫
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
     }
   },
-  created() {
+  created () {
     this.getProduct()
     this.getProducts()
   }

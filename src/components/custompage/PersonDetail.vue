@@ -40,7 +40,7 @@
 <script>
 export default {
   name: 'PersonDetail',
-  data() {
+  data () {
     return {
       userName: '',
       userEmail: '',
@@ -62,7 +62,7 @@ export default {
     }
   },
   methods: {
-    changeProfile(value) {
+    changeProfile (value) {
       this.edit = value
       this.nameModel = this.userName
       this.emailModel = this.userEmail
@@ -71,7 +71,7 @@ export default {
       this.birthModel = this.useBirth
       this.genderModel = this.useGender
     },
-    saveProfile() {
+    saveProfile () {
       this.axios
         .patch(
           process.env.VUE_APP_API + '/users/' + this.$store.state.user._id,
@@ -105,7 +105,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    getuserdetail() {
+    getuserdetail () {
       this.axios
         .get(
           process.env.VUE_APP_API +
@@ -122,7 +122,7 @@ export default {
         })
     }
   },
-  created() {
+  created () {
     this.getuserdetail()
   }
 }

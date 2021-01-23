@@ -476,7 +476,7 @@ export default {
     Footer
   },
   name: 'Home',
-  data() {
+  data () {
     return {
       show1: false,
       show2: false,
@@ -489,25 +489,25 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
     ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
     ...mapGetters('cartModules', ['cart'])
   },
   methods: {
-    controlcart(val) {
+    controlcart (val) {
       this.showcart = val
     },
-    goCheack() {
+    goCheack () {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`)
+        this.$router.push('/checkorder')
       } else {
         this.$alert.warning('請先登入後結帳')
-        this.$router.push(`/login`)
+        this.$router.push('/login')
       }
     },
-    logout() {
+    logout () {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
@@ -531,7 +531,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    nav() {
+    nav () {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop
       if (scrollTop > 600) {
         this.navshow = false
@@ -541,7 +541,7 @@ export default {
         this.navhide = false
       }
     },
-    addProduct(product) {
+    addProduct (product) {
       const data = {
         _id: product._id,
         name: product.productName,
@@ -557,33 +557,33 @@ export default {
       this.$store.dispatch('cartModules/addProduct', data)
     },
     // 移除喜歡的商品
-    removeFavorItem(product) {
+    removeFavorItem (product) {
       const index = this.favorites.indexOf(product)
       this.$store.commit('favoritesModules/REMOVEFAVORITEM', index)
     },
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    removeProduct(product) {
+    removeProduct (product) {
       const data = {
-        _id: product._id,
+        _id: product._id
       }
       this.$alert.totasTopEnd(product.productName, '已移除購物車')
       this.$store.dispatch('cartModules/removeProduct', data)
     },
-    updateProduct(product) {
+    updateProduct (product) {
       const data = {
         _id: product._id,
-        quantity: 1, //這裡要綁定，還沒寫
+        quantity: 1 // 這裡要綁定，還沒寫
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
     }
   },
-  mounted() {
+  mounted () {
     window.addEventListener('scroll', this.nav)
   },
-  destroyed() {
+  destroyed () {
     window.removeEventListener('scroll', this.nav)
   }
 }

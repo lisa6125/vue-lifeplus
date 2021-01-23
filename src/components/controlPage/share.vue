@@ -92,14 +92,14 @@
 <script>
 export default {
   name: 'ControlShare',
-  data() {
+  data () {
     return {
       shares: [],
       filter: '全部'
     }
   },
   computed: {
-    sharefilter() {
+    sharefilter () {
       if (this.filter === '全部') {
         return this.shares
       } else {
@@ -110,7 +110,7 @@ export default {
     }
   },
   methods: {
-    getshares() {
+    getshares () {
       this.axios.get(process.env.VUE_APP_API + '/shares/').then(res => {
         this.shares = res.data.result.map(e => {
           e.src = process.env.VUE_APP_API + '/shares/images/' + e.images[0].file
@@ -120,13 +120,13 @@ export default {
         })
       })
     },
-    del(item, idx) {
+    del (item, idx) {
       this.axios
         .delete(process.env.VUE_APP_API + '/shares/' + item._id)
         .then(res => {
           if (res.data.success) {
             this.sharefilter.splice(idx, 1)
-            let index = this.shares.indexOf(item)
+            const index = this.shares.indexOf(item)
             this.shares.splice(index, 1)
             this.$alert.success('刪除成功')
           } else {
@@ -137,11 +137,11 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    cancel(item) {
+    cancel (item) {
       item.onsharemodel = item.onshare
       item.edit = false
     },
-    save(item, idx) {
+    save (item, idx) {
       item.onshare = item.onsharemodel
       this.axios
         .patch(process.env.VUE_APP_API + '/shares/' + item._id, {
@@ -158,7 +158,7 @@ export default {
         })
     }
   },
-  created() {
+  created () {
     this.getshares()
   }
 }

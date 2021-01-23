@@ -138,7 +138,7 @@
 <script>
 export default {
   name: 'OrderDetail',
-  data() {
+  data () {
     return {
       allorders: [],
       changelist: false,
@@ -146,7 +146,7 @@ export default {
     }
   },
   computed: {
-    orderfilter() {
+    orderfilter () {
       if (this.filter === '全部') {
         return this.allorders
       } else {
@@ -157,7 +157,7 @@ export default {
     }
   },
   methods: {
-    getallorder() {
+    getallorder () {
       this.axios.get(process.env.VUE_APP_API + '/orders').then(res => {
         this.allorders = res.data.result.map(item => {
           item.payModel = item.pay
@@ -169,7 +169,7 @@ export default {
         })
       })
     },
-    liststatus() {
+    liststatus () {
       this.allorders = this.allorders.reverse()
       if (this.changelist) {
         this.changelist = false
@@ -177,10 +177,10 @@ export default {
         this.changelist = true
       }
     },
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    submit(order) {
+    submit (order) {
       this.axios.patch(
         process.env.VUE_APP_API + '/orders/reply/' + order.item,
         {
@@ -193,7 +193,7 @@ export default {
       this.$alert.success('回覆問題成功')
     }
   },
-  created() {
+  created () {
     this.getallorder()
   }
 }

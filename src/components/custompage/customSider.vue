@@ -51,7 +51,7 @@
 export default {
   name: 'customSider',
   computed: {
-    userName() {
+    userName () {
       return this.$store.state.user.name
     }
   }

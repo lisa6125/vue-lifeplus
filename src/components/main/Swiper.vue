@@ -34,7 +34,7 @@ export default {
     Swiper,
     SwiperSlide
   },
-  data() {
+  data () {
     return {
       swiperOption: {
         direction: 'horizontal',
@@ -53,11 +53,11 @@ export default {
         breakpoints: {
           // when window width is >= 896px
           897: {
-            slidesPerView: 4,
+            slidesPerView: 4
           },
           // when window width is >= 668px
           668: {
-            slidesPerView: 3,
+            slidesPerView: 3
           },
           // when window width is >= 569px
           569: {
@@ -142,16 +142,16 @@ export default {
           ],
           title: '層列咖啡桌',
           price: 21500
-        },
-      ],
+        }
+      ]
     }
   },
   computed: {
-    swiper() {
+    swiper () {
       return this.$refs.mySwiper.$swiper
     }
   },
-  mounted() {
+  mounted () {
     this.swiper.slideTo(1, 2000, true)
   }
 }

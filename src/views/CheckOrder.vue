@@ -230,20 +230,20 @@ export default {
     }
   },
   methods: {
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    updatequantity(data) {
+    updatequantity (data) {
       this.$store.dispatch('cartModules/updateProduct', data)
     },
-    removeProduct(product) {
+    removeProduct (product) {
       const data = {
-        _id: product._id,
+        _id: product._id
       }
       this.$alert.totasTopEnd(product.productName, '已移除該商品')
       this.$store.dispatch('cartModules/removeProduct', data)
     },
-    getuserdetail() {
+    getuserdetail () {
       this.axios
         .get(
           process.env.VUE_APP_API +
@@ -257,7 +257,7 @@ export default {
           this.connect.userPhone = res.data.result.phone
         })
     },
-    submit() {
+    submit () {
       this.cartlist = JSON.parse(localStorage.getItem('vuex')).cartModules.cart
       if (this.payment === '選擇付款方式') {
         this.$alert.error('未選擇付款方式')
@@ -298,9 +298,9 @@ export default {
             text: err
           })
         })
-    },
+    }
   },
-  created() {
+  created () {
     this.getuserdetail()
   }
 }

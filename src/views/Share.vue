@@ -81,7 +81,7 @@ import Footer from '../components/main/footer'
 export default {
   components: { Footer, Navbar },
   name: 'Share',
-  data() {
+  data () {
     return {
       navshow: true,
       navhide: false,
@@ -95,25 +95,25 @@ export default {
     ...mapGetters('cartModules', ['cart'])
   },
   methods: {
-    controlcart(val) {
+    controlcart (val) {
       this.showcart = val
     },
-    goDetail(id) {
+    goDetail (id) {
       this.$router.push(`/productdetail/${id}`)
     },
-    goCheack() {
+    goCheack () {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`)
+        this.$router.push('/checkorder')
       } else {
         this.$alert.warning('請先登入後結帳')
-        this.$router.push(`/login`)
+        this.$router.push('/login')
       }
     },
-    addFaver(product) {
+    addFaver (product) {
       this.$alert.totasTopEnd(product.productName, '已加入最愛', product.src1)
     },
     // 判斷顯示/隱藏關注樣式
-    setliked(item) {
+    setliked (item) {
       const liked = this.favorites.filter(favor => favor._id === item._id)
       if (liked.length > 0) {
         return true
@@ -121,7 +121,7 @@ export default {
       return false
     },
     // 變更喜愛的商品資料(新增/移除)
-    changeFavorite(product) {
+    changeFavorite (product) {
       this.$store.dispatch('favoritesModules/changeFavorite', product)
       const liked = this.favorites.filter(favor => favor._id === product._id)
       if (liked.length > 0) {
@@ -134,7 +134,7 @@ export default {
         this.$alert.totasTopEnd(product.productName, '已移除最愛')
       }
     },
-    nav() {
+    nav () {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop
       // console.log(scrollTop)
       if (scrollTop > this.lastScrollTop) {
@@ -146,7 +146,7 @@ export default {
       }
       this.lastScrollTop = scrollTop
     },
-    addProduct(product) {
+    addProduct (product) {
       const data = {
         _id: product._id,
         name: product.productName,
@@ -161,14 +161,14 @@ export default {
       )
       this.$store.dispatch('cartModules/addProduct', data)
     },
-    removeProduct(product) {
+    removeProduct (product) {
       const data = {
-        _id: product._id,
+        _id: product._id
       }
       this.$alert.totasTopEnd(product.productName, '已移除購物車')
       this.$store.dispatch('cartModules/removeProduct', data)
     },
-    updateProduct(product) {
+    updateProduct (product) {
       const data = {
         _id: product._id,
         quantity: 1 //這裡要綁定，還沒寫
@@ -176,7 +176,7 @@ export default {
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
     },
-    getshares() {
+    getshares () {
       this.axios.get(process.env.VUE_APP_API + '/shares/').then(res => {
         let postshare = res.data.result.filter(e => {
           return e.onshare === '審核通過'
@@ -188,13 +188,13 @@ export default {
       })
     }
   },
-  created() {
+  created () {
     this.getshares()
   },
-  mounted() {
+  mounted () {
     window.addEventListener('scroll', this.nav)
   },
-  destroyed() {
+  destroyed () {
     window.removeEventListener('scroll', this.nav)
   }
 }

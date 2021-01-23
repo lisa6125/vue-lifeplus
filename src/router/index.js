@@ -61,7 +61,7 @@ const routes = [
           title: '享家點|商品管理',
           login: true,
           right: true
-        },
+        }
       },
       {
         path: 'controlorder',
@@ -74,7 +74,7 @@ const routes = [
           title: '享家點|訂單管理',
           login: true,
           right: true
-        },
+        }
       },
       {
         path: 'controlreply',
@@ -101,8 +101,8 @@ const routes = [
           login: true,
           right: true
         }
-      },
-    ],
+      }
+    ]
   },
   {
     path: '/custom',
@@ -127,7 +127,7 @@ const routes = [
         meta: {
           title: '享家點|會員資料',
           login: true
-        },
+        }
       },
       {
         path: 'orderdetail',
@@ -193,15 +193,15 @@ const routes = [
       title: '享家點|分享',
       login: false
     }
-  },
+  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   routes,
-  scrollBehavior() {
+  scrollBehavior () {
     return { x: 0, y: 0 }
-  },
+  }
 })
 router.beforeEach((to, from, next) => {
   if (

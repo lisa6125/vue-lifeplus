@@ -11,7 +11,7 @@ export default {
     }
   },
   actions: {
-    addProduct(context, data) {
+    addProduct (context, data) {
       const products = context.state.cart.products
       let productCount = context.state.cart.productCount
       let totalPrice = 0
@@ -43,7 +43,7 @@ export default {
         totalAmount
       })
     },
-    removeProduct(context, data) {
+    removeProduct (context, data) {
       const products = context.state.cart.products
       let productCount = context.state.cart.productCount
       let totalPrice = 0
@@ -77,7 +77,7 @@ export default {
         totalAmount
       })
     },
-    updateProduct(context, data) {
+    updateProduct (context, data) {
       const products = context.state.cart.products
       let productCount = context.state.cart.productCount
       let totalPrice = 0
@@ -107,7 +107,7 @@ export default {
         totalAmount
       })
     },
-    clearCart(context) {
+    clearCart (context) {
       context.commit('CHANGECART', {
         products: [],
         productCount: 0,
@@ -117,14 +117,14 @@ export default {
     }
   },
   mutations: {
-    CHANGECART(state, data) {
+    CHANGECART (state, data) {
       state.cart.products = data.products
       state.cart.productCount = data.productCount
       state.cart.totalPrice = data.totalPrice
       state.cart.totalAmount = data.totalAmount
-    },
+    }
   },
   getters: {
-    cart: state => state.cart,
-  },
+    cart: state => state.cart
+  }
 }
