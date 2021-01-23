@@ -38,7 +38,7 @@ export default {
     },
     heartbeat () {
       this.axios
-        .get('http://localhost:3000' + '/users/heartbeat')
+        .get(process.env.VUE_APP_API + '/users/heartbeat')
         .then(res => {
           // 如果 vuex 是登入中
           if (this.user._id.length > 0) {
