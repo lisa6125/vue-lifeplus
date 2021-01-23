@@ -53,35 +53,35 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import "../assets/css/dashboard.scss";
-import customSide from "../components/custompage/customSider";
-import Navbar from "../components/main/navbar";
+import { mapGetters } from 'vuex'
+import '../assets/css/dashboard.scss'
+import customSide from '../components/custompage/customSider'
+import Navbar from '../components/main/navbar'
 export default {
   components: {
     customSide,
     Navbar,
   },
-  name: "Custom",
+  name: 'Custom',
   data() {
     return {
       showcart: false,
-    };
+    }
   },
   computed: {
-    ...mapGetters("favoritesModules", ["favorites", "favorLength"]),
-    ...mapGetters("cartModules", ["cart"]),
+    ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
+    ...mapGetters('cartModules', ['cart']),
   },
   methods: {
     controlcart(val) {
-      this.showcart = val;
+      this.showcart = val
     },
     goCheack() {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`);
+        this.$router.push(`/checkorder`)
       } else {
-        this.$alert.warning("請先登入後結帳");
-        this.$router.push(`/login`);
+        this.$alert.warning('請先登入後結帳')
+        this.$router.push(`/login`)
       }
     },
     addProduct(product) {
@@ -91,31 +91,31 @@ export default {
         src: product.src1,
         price: product.price,
         quantity: 1,
-      };
+      }
       this.$alert.totasTopEnd(
-        product.productName + " x " + "1",
-        "已加入購物車",
+        product.productName + ' x ' + '1',
+        '已加入購物車',
         product.src1
-      );
-      this.$store.dispatch("cartModules/addProduct", data);
+      )
+      this.$store.dispatch('cartModules/addProduct', data)
     },
     // 移除喜歡的商品
     removeFavorItem(product) {
-      const index = this.favorites.indexOf(product);
-      this.$store.commit("favoritesModules/REMOVEFAVORITEM", index);
+      const index = this.favorites.indexOf(product)
+      this.$store.commit('favoritesModules/REMOVEFAVORITEM', index)
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`);
+      this.$router.push(`/productdetail/${id}`)
     },
     removeProduct(product) {
       const data = {
         _id: product._id,
-      };
-      this.$alert.totasTopEnd(product.productName, "已移除購物車");
-      this.$store.dispatch("cartModules/removeProduct", data);
+      }
+      this.$alert.totasTopEnd(product.productName, '已移除購物車')
+      this.$store.dispatch('cartModules/removeProduct', data)
     },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

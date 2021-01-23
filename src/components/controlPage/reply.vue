@@ -137,66 +137,66 @@
 
 <script>
 export default {
-  name: "OrderDetail",
+  name: 'OrderDetail',
   data() {
     return {
       allorders: [],
       changelist: false,
-      filter: "全部",
-    };
+      filter: '全部',
+    }
   },
   computed: {
     orderfilter() {
-      if (this.filter === "全部") {
-        return this.allorders;
+      if (this.filter === '全部') {
+        return this.allorders
       } else {
-        return this.allorders.filter((e) => {
-          return e.askstatus === this.filter;
-        });
+        return this.allorders.filter(e => {
+          return e.askstatus === this.filter
+        })
       }
     },
   },
   methods: {
     getallorder() {
-      this.axios.get(process.env.VUE_APP_API + "/orders").then((res) => {
-        this.allorders = res.data.result.map((item) => {
-          item.payModel = item.pay;
-          item.statusModel = item.status;
-          item.showoederdetail = false;
-          item.edit = false;
-          item.reply = "";
-          return item;
-        });
-      });
+      this.axios.get(process.env.VUE_APP_API + '/orders').then(res => {
+        this.allorders = res.data.result.map(item => {
+          item.payModel = item.pay
+          item.statusModel = item.status
+          item.showoederdetail = false
+          item.edit = false
+          item.reply = ''
+          return item
+        })
+      })
     },
     liststatus() {
-      this.allorders = this.allorders.reverse();
+      this.allorders = this.allorders.reverse()
       if (this.changelist) {
-        this.changelist = false;
+        this.changelist = false
       } else {
-        this.changelist = true;
+        this.changelist = true
       }
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`);
+      this.$router.push(`/productdetail/${id}`)
     },
     submit(order) {
       this.axios.patch(
-        process.env.VUE_APP_API + "/orders/reply/" + order.item,
+        process.env.VUE_APP_API + '/orders/reply/' + order.item,
         {
           reply: order.reply,
-          askstatus: "已回覆",
+          askstatus: '已回覆',
         }
-      );
-      this.getallorder();
-      order.reply = "";
-      this.$alert.success("回覆問題成功");
+      )
+      this.getallorder()
+      order.reply = ''
+      this.$alert.success('回覆問題成功')
     },
   },
   created() {
-    this.getallorder();
+    this.getallorder()
   },
-};
+}
 </script>
 <style lang="stylus" scoped>
 .orders_item{

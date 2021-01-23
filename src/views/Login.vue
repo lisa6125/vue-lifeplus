@@ -41,75 +41,75 @@
 </template>
 
 <script>
-import Navbar from "../components/main/navbar";
+import Navbar from '../components/main/navbar'
 export default {
   components: {
     Navbar,
   },
-  name: "login",
+  name: 'login',
   data() {
     return {
-      name: "",
-      account: "",
-      password: "",
-      email: "",
+      name: '',
+      account: '',
+      password: '',
+      email: '',
       right: false,
       status: {
         bounceRight: false,
         bounceLeft: true,
       },
-    };
+    }
   },
   methods: {
     onSubmit() {
       this.axios
-        .post(process.env.VUE_APP_API + "/users/login", this.$data)
-        .then((res) => {
+        .post(process.env.VUE_APP_API + '/users/login', this.$data)
+        .then(res => {
           if (res.data.success && res.data.result.right) {
-            this.$store.commit("login", res.data.result);
-            this.$alert.success("登入成功，進入管理").then(() => {
-              this.$router.push("/admin/");
-            });
+            this.$store.commit('login', res.data.result)
+            this.$alert.success('登入成功，進入管理').then(() => {
+              this.$router.push('/admin/')
+            })
           } else if (res.data.success && !res.data.result.right) {
-            this.$store.commit("login", res.data.result);
-            this.$alert.success("登入成功，進入會員").then(() => {
-              this.$router.push("/");
-            });
+            this.$store.commit('login', res.data.result)
+            this.$alert.success('登入成功，進入會員').then(() => {
+              this.$router.push('/')
+            })
           } else {
-            this.$alert.error(res.data.message);
+            this.$alert.error(res.data.message)
           }
         })
-        .catch((error) => {
-          this.$alert.error(error.response.data.message);
-        });
+        .catch(error => {
+          this.$alert.error(error.response.data.message)
+        })
     },
     onSubmit_reg() {
       this.axios
-        .post(process.env.VUE_APP_API + "/users/", this.$data)
-        .then((res) => {
-          this.$alert.success(res.data.message);
-          this.name = "";
-          this.account = "";
-          this.password = "";
-          this.email = "";
-          this.status.bounceRight = true;
-          this.status.bounceLeft = false;
+        .post(process.env.VUE_APP_API + '/users/', this.$data)
+        .then(res => {
+          this.$alert.success(res.data.message)
+          this.name = ''
+          this.account = ''
+          this.password = ''
+          this.email = ''
+          this.status.bounceRight = true
+          this.status.bounceLeft = false
         })
-        .catch((error) => {
-          this.$alert.error(error.response.data.message);
-        });
+        .catch(error => {
+          this.$alert.error(error.response.data.message)
+        })
     },
     showchick(c) {
       if (c === true) {
-        this.status.bounceRight = true;
-        this.status.bounceLeft = false;
+        this.status.bounceRight = true
+        this.status.bounceLeft = false
       } else {
-        this.status.bounceRight = false;
-        this.status.bounceLeft = true;
+        this.status.bounceRight = false
+        this.status.bounceLeft = true
       }
     },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

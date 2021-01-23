@@ -194,11 +194,11 @@
   </div>
 </template>
 <script>
-import Navbar from "../components/main/navbar";
-import Footer from "../components/main/footer";
-import { mapGetters } from "vuex";
+import Navbar from '../components/main/navbar'
+import Footer from '../components/main/footer'
+import { mapGetters } from 'vuex'
 export default {
-  name: "ProductDetail",
+  name: 'ProductDetail',
   components: {
     Navbar,
     Footer,
@@ -209,98 +209,98 @@ export default {
       sameproducts: [],
       sameitem: [],
       showpic: [],
-      selectPic: "",
+      selectPic: '',
       showcart: false,
       quantity: 1,
-      notsale: "",
-    };
+      notsale: '',
+    }
   },
   computed: {
-    ...mapGetters("favoritesModules", ["favorites", "favorLength"]),
-    ...mapGetters("cartModules", ["cart"]),
+    ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
+    ...mapGetters('cartModules', ['cart']),
   },
   methods: {
     goback() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     controlcart(val) {
-      this.showcart = val;
+      this.showcart = val
     },
     count(val) {
       if (this.quantity === 1 && parseInt(val) < 0) {
-        this.quantity = 1;
+        this.quantity = 1
       } else {
-        this.quantity = parseInt(this.quantity);
-        this.quantity += parseInt(val);
+        this.quantity = parseInt(this.quantity)
+        this.quantity += parseInt(val)
       }
     },
     getProduct() {
       this.axios
         .get(
           process.env.VUE_APP_API +
-            "/products/product/" +
+            '/products/product/' +
             this.$route.params.productId
         )
-        .then((res) => {
-          this.product = res.data.result;
+        .then(res => {
+          this.product = res.data.result
           this.selectPic =
             process.env.VUE_APP_API +
-            "/products/images/" +
-            this.product.images[0].file;
+            '/products/images/' +
+            this.product.images[0].file
           for (let i = 0; i < this.product.images.length; i++) {
             this.showpic.push(
               process.env.VUE_APP_API +
-                "/products/images/" +
+                '/products/images/' +
                 this.product.images[i].file
-            );
+            )
           }
           if (this.product.onsale === false) {
-            this.notsale = true;
+            this.notsale = true
           }
-        });
+        })
     },
     getProducts() {
-      this.axios.get(process.env.VUE_APP_API + "/products/").then((res) => {
-        this.sameproducts = res.data.result.filter((item) => {
+      this.axios.get(process.env.VUE_APP_API + '/products/').then(res => {
+        this.sameproducts = res.data.result.filter(item => {
           return (
             item.type === this.product.type && item._id !== this.product._id
-          );
-        });
+          )
+        })
         if (this.sameproducts > 3) {
           for (let i = 0; i < 3; i++) {
-            const r = Math.floor(Math.random() * this.sameproducts.length);
+            const r = Math.floor(Math.random() * this.sameproducts.length)
             const idx = this.sameitem.findIndex(
-              (item) => item._id === this.sameproducts[r]._id
-            );
-            console.log(idx);
+              item => item._id === this.sameproducts[r]._id
+            )
+            console.log(idx)
             if (idx !== -1) {
-              i--;
+              i--
             } else {
               if (this.sameitem.length < 3) {
-                this.sameitem.push(this.sameproducts[r]);
+                this.sameitem.push(this.sameproducts[r])
               }
             }
           }
         } else {
-          this.sameitem = this.sameproducts.slice(0);
+          this.sameitem = this.sameproducts.slice(0)
         }
-        this.sameitem.map((product) => {
+        this.sameitem.map(product => {
           product.src =
             process.env.VUE_APP_API +
-            "/products/images/" +
-            product.images[0].file;
-        });
-      });
+            '/products/images/' +
+            product.images[0].file
+        })
+      })
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`);
+      this.$router.push(`/productdetail/${id}`)
     },
     goCheack() {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`);
+        this.$router.push(`/checkorder`)
       } else {
-        this.$alert.warning("請先登入後結帳");
-        this.$router.push(`/login`);
+        this.$alert.warning('請先登入後結帳')
+        this.$router.push(`/login`)
       }
     },
     addProduct(product) {
@@ -309,37 +309,37 @@ export default {
         name: product.productName,
         src:
           process.env.VUE_APP_API +
-          "/products/images/" +
+          '/products/images/' +
           product.images[0].file,
         price: product.price,
         quantity: this.quantity,
-      };
-      this.$alert.success("已加入購物車");
-      this.$store.dispatch("cartModules/addProduct", data);
-      this.quantity = 1;
+      }
+      this.$alert.success('已加入購物車')
+      this.$store.dispatch('cartModules/addProduct', data)
+      this.quantity = 1
       // this.showcart = true
     },
     removeProduct(product) {
       const data = {
         _id: product._id,
-      };
-      this.$alert.totasTopEnd(product.productName, "已移除購物車");
-      this.$store.dispatch("cartModules/removeProduct", data);
+      }
+      this.$alert.totasTopEnd(product.productName, '已移除購物車')
+      this.$store.dispatch('cartModules/removeProduct', data)
     },
     updateProduct(product) {
       const data = {
         _id: product._id,
         quantity: 1, //這裡要綁定，還沒寫
-      };
-      this.$alert.totasTopEnd(product.productName, "已更新購物車");
-      this.$store.dispatch("cartModules/updateProduct", data);
+      }
+      this.$alert.totasTopEnd(product.productName, '已更新購物車')
+      this.$store.dispatch('cartModules/updateProduct', data)
     },
   },
   created() {
-    this.getProduct();
-    this.getProducts();
+    this.getProduct()
+    this.getProducts()
   },
-};
+}
 </script>
 <style lang="stylus">
 #ProductDetail{

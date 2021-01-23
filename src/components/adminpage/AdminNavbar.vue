@@ -81,34 +81,34 @@
 
 <script>
 export default {
-  name: "AdminNavbar",
+  name: 'AdminNavbar',
   methods: {
     logout() {
       this.axios
-        .delete(process.env.VUE_APP_API + "/users/logout")
-        .then((res) => {
+        .delete(process.env.VUE_APP_API + '/users/logout')
+        .then(res => {
           // 如果登出成功
           if (res.data.success) {
-            this.$alert.success("登出成功");
+            this.$alert.success('登出成功')
 
             // 清除 vuex
-            this.$store.commit("logout");
+            this.$store.commit('logout')
 
             // 導回首頁
-            if (this.$route.path !== "/") {
-              this.$router.push("/");
+            if (this.$route.path !== '/') {
+              this.$router.push('/')
             }
           } else {
-            this.$alert.error(res.data.message);
+            this.$alert.error(res.data.message)
           }
         })
-        .catch((error) => {
+        .catch(error => {
           // 如果回來的狀態碼不是 200，直接 alert 錯誤訊息
-          this.$alert.error(error.response.data.message);
-        });
+          this.$alert.error(error.response.data.message)
+        })
     },
   },
-};
+}
 </script>
 <style lang="stylus" scoped>
 #adminnavbar{

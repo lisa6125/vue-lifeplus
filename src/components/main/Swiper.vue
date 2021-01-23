@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/css/swiper.css";
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 export default {
   components: {
     Swiper,
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       swiperOption: {
-        direction: "horizontal",
+        direction: 'horizontal',
         speed: 2000,
         loop: true,
         autoplay: {
@@ -47,7 +47,7 @@ export default {
         slidesPerView: 1,
         spaceBetween: 5,
         pagination: {
-          el: ".swiper-pagination",
+          el: '.swiper-pagination',
           clickable: true,
         },
         breakpoints: {
@@ -67,94 +67,94 @@ export default {
       },
       sales: [
         {
-          id: "600646482806db20444307dd",
+          id: '600646482806db20444307dd',
           img: [
-            "https://www.ikea.com.tw/dairyfarm/tw/images/193/0719380_PE732028_S4.jpg",
-            "https://www.ikea.com.tw/dairyfarm/tw/images/193/0719379_PE732027_S4.jpg",
+            'https://www.ikea.com.tw/dairyfarm/tw/images/193/0719380_PE732028_S4.jpg',
+            'https://www.ikea.com.tw/dairyfarm/tw/images/193/0719379_PE732027_S4.jpg',
           ],
-          title: "實木餐桌",
+          title: '實木餐桌',
           price: 16000,
         },
         {
-          id: "60064bf32806db2044430801",
+          id: '60064bf32806db2044430801',
           img: [
-            "https://www.ikea.com.tw/dairyfarm/tw/images/289/0828965_PE680174_S4.jpg",
-            "https://www.ikea.com.tw/dairyfarm/tw/images/254/0825433_PE680190_S4.jpg",
+            'https://www.ikea.com.tw/dairyfarm/tw/images/289/0828965_PE680174_S4.jpg',
+            'https://www.ikea.com.tw/dairyfarm/tw/images/254/0825433_PE680190_S4.jpg',
           ],
-          title: "清新雙人沙發",
+          title: '清新雙人沙發',
           price: 32000,
         },
         {
-          id: "60064ec22806db204443081d",
+          id: '60064ec22806db204443081d',
           img: [
-            "https://www.ikea.com.tw/dairyfarm/tw/images/502/0750238_PH159469_S4.jpg",
-            "https://www.ikea.com.tw/dairyfarm/tw/images/729/0672925_PE716965_S4.jpg",
+            'https://www.ikea.com.tw/dairyfarm/tw/images/502/0750238_PH159469_S4.jpg',
+            'https://www.ikea.com.tw/dairyfarm/tw/images/729/0672925_PE716965_S4.jpg',
           ],
-          title: "藤編椅",
+          title: '藤編椅',
           price: 3200,
         },
         {
           id:
-            "VqUgrIQn2xduyroirqHVwbNEhArvZHFnyMwmdBLm2sgbSrIeJAGJNEIDrpJPHTov",
+            'VqUgrIQn2xduyroirqHVwbNEhArvZHFnyMwmdBLm2sgbSrIeJAGJNEIDrpJPHTov',
           img: [
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/vykOZbS2HbsT7Rym9N3vyBEUEPYGYfF5ll7EMY4W6Bw4xhXYMIXJ1XDlVFeLzTMToEkTnLPzvI0vy5tqllkBit9AihNXuQzlvv9wmUdmiBKnXxYOdgQLyIXfOmKZ8Ck4.png",
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/Y5bRu7BEb8jEWPzInHbMDeYKwNa5deaQy19FMzgWG5yRb71K4ukFUBB0RTKFJC0fAZdV9av2BTMKwY1beWihMpbbymJ4hK1WNpmrAf6ZAD4r9CGCV0blQrbiFkbeHCTx.png",
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/vykOZbS2HbsT7Rym9N3vyBEUEPYGYfF5ll7EMY4W6Bw4xhXYMIXJ1XDlVFeLzTMToEkTnLPzvI0vy5tqllkBit9AihNXuQzlvv9wmUdmiBKnXxYOdgQLyIXfOmKZ8Ck4.png',
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/Y5bRu7BEb8jEWPzInHbMDeYKwNa5deaQy19FMzgWG5yRb71K4ukFUBB0RTKFJC0fAZdV9av2BTMKwY1beWihMpbbymJ4hK1WNpmrAf6ZAD4r9CGCV0blQrbiFkbeHCTx.png',
           ],
-          title: "原型雙人沙發",
+          title: '原型雙人沙發',
           price: 140100,
         },
         {
           id:
-            "X7KIKvGlTsEY5AJewFJJIfriyEkMFCo5bDo2AO59UsifrJN0NQMe8Loc9W4eIgXQ",
+            'X7KIKvGlTsEY5AJewFJJIfriyEkMFCo5bDo2AO59UsifrJN0NQMe8Loc9W4eIgXQ',
           img: [
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/HXofHl5l7E742fXcXtHxmSt9jASUcjqK0l04TZsIudlO1t4svMJrqLRgq7p13DAdUh2xd0i8JuZsi7c6eO3u878wlUNONABbugFQ3qbLEYLcHpNxAyFv9tputKdZ4hE4.png",
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/6TvWSjMadY6fObd9VdSPQBpwLEHVx3Q82RtUj6ocEAk9fj2gaYmYVJbUqRSOeM9zVx6kXTI78nQgsF71ZqNCeUAWLGQNI8BqAAJCEOd7lg2LSFiOLOLHj58V0Lel3t90.png",
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/HXofHl5l7E742fXcXtHxmSt9jASUcjqK0l04TZsIudlO1t4svMJrqLRgq7p13DAdUh2xd0i8JuZsi7c6eO3u878wlUNONABbugFQ3qbLEYLcHpNxAyFv9tputKdZ4hE4.png',
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/6TvWSjMadY6fObd9VdSPQBpwLEHVx3Q82RtUj6ocEAk9fj2gaYmYVJbUqRSOeM9zVx6kXTI78nQgsF71ZqNCeUAWLGQNI8BqAAJCEOd7lg2LSFiOLOLHj58V0Lel3t90.png',
           ],
-          title: "封光吊燈",
+          title: '封光吊燈',
           price: 10000,
         },
         {
           id:
-            "eQoKOCkszCMIRhRN3YAqpBnpMinvTAfzGgSQiKrZCMyhLlk3UR5QSipucPuXboDa",
+            'eQoKOCkszCMIRhRN3YAqpBnpMinvTAfzGgSQiKrZCMyhLlk3UR5QSipucPuXboDa',
           img: [
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/k7QLOd1LkjF1Znan5N7nuN9SqzbdrXtZaM11xvmuE8JjmZqHAzfD11yHYwqFtW5aew99cQhgUDtW1u2epfUwuoZzqlxJF4dXqWtau7eVisG6F8SmFLBHJ9d3uEa7lAtc.png",
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/4AHGLMmycAH0MxRGvcsEY5dxhKY6HI7b0Dqa3IdHJcaaAX7nDsP4RnXrO4jA91MSwj8iMJy5iQmNCrovUgNaeWDYajqqBB8Qh3uSgHv5P0Mg85RbsOOrySTdDQvJ83SC.png",
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/k7QLOd1LkjF1Znan5N7nuN9SqzbdrXtZaM11xvmuE8JjmZqHAzfD11yHYwqFtW5aew99cQhgUDtW1u2epfUwuoZzqlxJF4dXqWtau7eVisG6F8SmFLBHJ9d3uEa7lAtc.png',
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/4AHGLMmycAH0MxRGvcsEY5dxhKY6HI7b0Dqa3IdHJcaaAX7nDsP4RnXrO4jA91MSwj8iMJy5iQmNCrovUgNaeWDYajqqBB8Qh3uSgHv5P0Mg85RbsOOrySTdDQvJ83SC.png',
           ],
-          title: "速寫椅凳",
+          title: '速寫椅凳',
           price: 24800,
         },
         {
           id:
-            "lqfnX0MnUC0f6O9YvSt1FxjgKhP71kU8nQxu0DvzD2WsqDtWTEIVayDM80FehXCm",
+            'lqfnX0MnUC0f6O9YvSt1FxjgKhP71kU8nQxu0DvzD2WsqDtWTEIVayDM80FehXCm',
           img: [
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/UJUDCt3z4gELMrjPd66J265q2gk11xWtorhDf0Ee6xb8dDO2cs3YbCujF75AWetr5zMz9CthAYW6ChVjGpb1yLJ8WDe37gQa7ajgySWSr3Cz0zQiJqJXBO8iA7ijHbgg.png",
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/6Khh5S9lOOaUf57nOHQWIacfKMMQcNGmTA9bucy0m3NkBxwlm9pHWfa76jrnsPmGKcr5hlGfFVsvGAzWr2OwLFab607VVIF1dIHMfwj5Iy0aN7b8Enz6qV5g7n9Xi2q7.png",
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/UJUDCt3z4gELMrjPd66J265q2gk11xWtorhDf0Ee6xb8dDO2cs3YbCujF75AWetr5zMz9CthAYW6ChVjGpb1yLJ8WDe37gQa7ajgySWSr3Cz0zQiJqJXBO8iA7ijHbgg.png',
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/6Khh5S9lOOaUf57nOHQWIacfKMMQcNGmTA9bucy0m3NkBxwlm9pHWfa76jrnsPmGKcr5hlGfFVsvGAzWr2OwLFab607VVIF1dIHMfwj5Iy0aN7b8Enz6qV5g7n9Xi2q7.png',
           ],
-          title: "層列邊桌",
+          title: '層列邊桌',
           price: 15000,
         },
         {
           id:
-            "aIDl5f2PAskhksJP5n09HF0u0qRnyDpovqxrwjIKE3qf7ozn8QwWeuVI6NLArc8J",
+            'aIDl5f2PAskhksJP5n09HF0u0qRnyDpovqxrwjIKE3qf7ozn8QwWeuVI6NLArc8J',
           img: [
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/PnEfRj3QrQODQSBxoeRcq37yhSBN9MkTZuDKmguqggQFadsk1tBD3Zj1XeUkS7MiCaw1enHibrHoW3qerIYOrHmt4saA8cUDX9sO5RjqoDaVpQoA22RJYY1bf7Kfp5BQ.png",
-            "https://hexschool-api.s3.us-west-2.amazonaws.com/custom/XdIAQzWrYMPcJmovkLpp7Dt3zbCtezzpL9sRpzG4Hmi0N4fnmTAkv2nIHwJKwEo0comvJ58dqJxSFlpPC49fzK9VH8BWLsO2ibX6FjnUZxnBMv8k4scfZSo6KTMGuhfx.png",
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/PnEfRj3QrQODQSBxoeRcq37yhSBN9MkTZuDKmguqggQFadsk1tBD3Zj1XeUkS7MiCaw1enHibrHoW3qerIYOrHmt4saA8cUDX9sO5RjqoDaVpQoA22RJYY1bf7Kfp5BQ.png',
+            'https://hexschool-api.s3.us-west-2.amazonaws.com/custom/XdIAQzWrYMPcJmovkLpp7Dt3zbCtezzpL9sRpzG4Hmi0N4fnmTAkv2nIHwJKwEo0comvJ58dqJxSFlpPC49fzK9VH8BWLsO2ibX6FjnUZxnBMv8k4scfZSo6KTMGuhfx.png',
           ],
-          title: "層列咖啡桌",
+          title: '層列咖啡桌',
           price: 21500,
         },
       ],
-    };
+    }
   },
   computed: {
     swiper() {
-      return this.$refs.mySwiper.$swiper;
+      return this.$refs.mySwiper.$swiper
     },
   },
   mounted() {
-    this.swiper.slideTo(1, 2000, true);
+    this.swiper.slideTo(1, 2000, true)
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

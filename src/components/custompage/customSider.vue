@@ -49,13 +49,13 @@
 
 <script>
 export default {
-  name: "customSider",
+  name: 'customSider',
   computed: {
     userName() {
-      return this.$store.state.user.name;
+      return this.$store.state.user.name
     },
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

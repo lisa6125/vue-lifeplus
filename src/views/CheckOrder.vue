@@ -186,7 +186,7 @@
                   @click.native="submit"
                   class="wizard-footer-right finish-button"
                   :style="props.fillButtonStyle"
-                  >{{ props.isLastStep ? "確認送出" : "下一步" }}</wizard-button
+                  >{{ props.isLastStep ? '確認送出' : '下一步' }}</wizard-button
                 >
               </div>
             </template>
@@ -206,104 +206,104 @@
 </template>
 
 <script>
-import Navbar from "../components/main/navbar";
-import { mapGetters } from "vuex";
+import Navbar from '../components/main/navbar'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Navbar,
   },
-  name: "CheckOrder",
+  name: 'CheckOrder',
   computed: {
-    ...mapGetters("cartModules", ["cart"]),
+    ...mapGetters('cartModules', ['cart']),
   },
   data() {
     return {
-      steps: ["確認商品", "確認資料", "送出訂單"],
-      payment: "選擇付款方式",
+      steps: ['確認商品', '確認資料', '送出訂單'],
+      payment: '選擇付款方式',
       connect: {
-        userName: "",
-        userEmail: "",
-        userAddress: "",
-        userPhone: "",
+        userName: '',
+        userEmail: '',
+        userAddress: '',
+        userPhone: '',
       },
       cartlist: {},
-    };
+    }
   },
   methods: {
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`);
+      this.$router.push(`/productdetail/${id}`)
     },
     updatequantity(data) {
-      this.$store.dispatch("cartModules/updateProduct", data);
+      this.$store.dispatch('cartModules/updateProduct', data)
     },
     removeProduct(product) {
       const data = {
         _id: product._id,
-      };
-      this.$alert.totasTopEnd(product.productName, "已移除該商品");
-      this.$store.dispatch("cartModules/removeProduct", data);
+      }
+      this.$alert.totasTopEnd(product.productName, '已移除該商品')
+      this.$store.dispatch('cartModules/removeProduct', data)
     },
     getuserdetail() {
       this.axios
         .get(
           process.env.VUE_APP_API +
-            "/users/getuser/" +
+            '/users/getuser/' +
             this.$store.state.user._id
         )
-        .then((res) => {
-          this.connect.userName = res.data.result.name;
-          this.connect.userEmail = res.data.result.email;
-          this.connect.userAddress = res.data.result.address;
-          this.connect.userPhone = res.data.result.phone;
-        });
+        .then(res => {
+          this.connect.userName = res.data.result.name
+          this.connect.userEmail = res.data.result.email
+          this.connect.userAddress = res.data.result.address
+          this.connect.userPhone = res.data.result.phone
+        })
     },
     submit() {
-      this.cartlist = JSON.parse(localStorage.getItem("vuex")).cartModules.cart;
-      if (this.payment === "選擇付款方式") {
-        this.$alert.error("未選擇付款方式");
-        return;
+      this.cartlist = JSON.parse(localStorage.getItem('vuex')).cartModules.cart
+      if (this.payment === '選擇付款方式') {
+        this.$alert.error('未選擇付款方式')
+        return
       }
       if (
-        this.connect.userName === "" ||
-        this.connect.userEmail === "" ||
-        this.connect.userAddress === "" ||
-        this.connect.userPhone === "" ||
-        this.connect.userAddress === "未填寫" ||
-        this.connect.userPhone === "未填寫"
+        this.connect.userName === '' ||
+        this.connect.userEmail === '' ||
+        this.connect.userAddress === '' ||
+        this.connect.userPhone === '' ||
+        this.connect.userAddress === '未填寫' ||
+        this.connect.userPhone === '未填寫'
       ) {
-        this.$alert.error("資料未填寫完成");
-        return;
+        this.$alert.error('資料未填寫完成')
+        return
       }
-      this.axios.post(process.env.VUE_APP_API + "/orders/", {
+      this.axios.post(process.env.VUE_APP_API + '/orders/', {
         item: Date.now(),
         account: this.$store.state.user.account,
         connect: this.connect,
         products: this.cartlist.products,
         total: this.cartlist.totalPrice,
         payment: this.payment,
-        pay: "未付款",
-        status: "未出貨",
+        pay: '未付款',
+        status: '未出貨',
         ask: [],
-        askstatus: "無",
-      });
-      this.$alert.success("已送出訂單");
-      this.$store.dispatch("cartModules/clearCart");
+        askstatus: '無',
+      })
+      this.$alert.success('已送出訂單')
+      this.$store.dispatch('cartModules/clearCart')
       this.$router
-        .push("/custom/orderdetail")
-        .then((res) => {})
-        .catch((err) => {
+        .push('/custom/orderdetail')
+        .then(res => {})
+        .catch(err => {
           this.$swal({
-            icon: "error",
-            title: "錯誤",
+            icon: 'error',
+            title: '錯誤',
             text: err,
-          });
-        });
+          })
+        })
     },
   },
   created() {
-    this.getuserdetail();
+    this.getuserdetail()
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import "../assets/css/dashboard.scss";
-import AdminNavbar from "../components/adminpage/AdminNavbar";
+import '../assets/css/dashboard.scss'
+import AdminNavbar from '../components/adminpage/AdminNavbar'
 export default {
   components: {
     AdminNavbar,
   },
-  name: "Admin",
-};
+  name: 'Admin',
+}
 </script>

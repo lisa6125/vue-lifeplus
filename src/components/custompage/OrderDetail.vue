@@ -160,63 +160,63 @@
 
 <script>
 export default {
-  name: "OrderDetail",
+  name: 'OrderDetail',
   data() {
     return {
       userorders: [],
       changelist: false,
-      askitem: "",
-      askquestion: "",
-    };
+      askitem: '',
+      askquestion: '',
+    }
   },
   methods: {
     getorders() {
       this.axios
         .get(
-          process.env.VUE_APP_API + "/orders/" + this.$store.state.user.account
+          process.env.VUE_APP_API + '/orders/' + this.$store.state.user.account
         )
-        .then((res) => {
-          this.userorders = res.data.result.map((item) => {
-            item.showoederdetail = false;
-            return item;
-          });
-        });
+        .then(res => {
+          this.userorders = res.data.result.map(item => {
+            item.showoederdetail = false
+            return item
+          })
+        })
     },
     liststatus() {
-      this.userorders = this.userorders.reverse();
+      this.userorders = this.userorders.reverse()
       if (this.changelist) {
-        this.changelist = false;
+        this.changelist = false
       } else {
-        this.changelist = true;
+        this.changelist = true
       }
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`);
+      this.$router.push(`/productdetail/${id}`)
     },
     submit() {
       this.axios
-        .patch(process.env.VUE_APP_API + "/orders/ask/" + this.askitem, {
+        .patch(process.env.VUE_APP_API + '/orders/ask/' + this.askitem, {
           userask: this.askquestion,
-          askstatus: "未回覆",
+          askstatus: '未回覆',
         })
-        .then((res) => {
+        .then(res => {
           this.userorders.find((e, index) => {
             if (e.item === res.data.result.item) {
-              res.data.result.showoederdetail = false;
-              this.userorders.splice(index, 1, res.data.result);
+              res.data.result.showoederdetail = false
+              this.userorders.splice(index, 1, res.data.result)
             }
-          });
-          console.log(this.userorders);
-        });
-      this.askitem = "";
-      this.askquestion = "";
-      this.$alert.success("新增問題成功");
+          })
+          console.log(this.userorders)
+        })
+      this.askitem = ''
+      this.askquestion = ''
+      this.$alert.success('新增問題成功')
     },
   },
   created() {
-    this.getorders();
+    this.getorders()
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

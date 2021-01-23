@@ -465,17 +465,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import Footer from "../components/main/footer.vue";
-import Navbarhome from "../components/main/navbarhome";
-import Swiper from "../components/main/Swiper.vue";
+import { mapGetters } from 'vuex'
+import Footer from '../components/main/footer.vue'
+import Navbarhome from '../components/main/navbarhome'
+import Swiper from '../components/main/Swiper.vue'
 export default {
   components: {
     Navbarhome,
     Swiper,
     Footer,
   },
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       show1: false,
@@ -486,60 +486,59 @@ export default {
       navhide: false,
       lastScrollTop: 0,
       showcart: false,
-    };
+    }
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.user
     },
-    ...mapGetters("favoritesModules", ["favorites", "favorLength"]),
-    ...mapGetters("cartModules", ["cart"]),
+    ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
+    ...mapGetters('cartModules', ['cart']),
   },
   methods: {
     controlcart(val) {
-      this.showcart = val;
+      this.showcart = val
     },
     goCheack() {
       if (this.$store.state.user.account.length > 0) {
-        this.$router.push(`/checkorder`);
+        this.$router.push(`/checkorder`)
       } else {
-        this.$alert.warning("請先登入後結帳");
-        this.$router.push(`/login`);
+        this.$alert.warning('請先登入後結帳')
+        this.$router.push(`/login`)
       }
     },
     logout() {
       this.axios
-        .delete(process.env.VUE_APP_API + "/users/logout")
-        .then((res) => {
+        .delete(process.env.VUE_APP_API + '/users/logout')
+        .then(res => {
           // 如果登出成功
           if (res.data.success) {
-            this.$alert.success("登出成功");
+            this.$alert.success('登出成功')
 
             // 清除 vuex
-            this.$store.commit("logout");
+            this.$store.commit('logout')
 
             // 導回首頁
-            if (this.$route.path !== "/") {
-              this.$router.push("/");
+            if (this.$route.path !== '/') {
+              this.$router.push('/')
             }
           } else {
-            this.$alert.error(res.data.message);
+            this.$alert.error(res.data.message)
           }
         })
-        .catch((error) => {
+        .catch(error => {
           // 如果回來的狀態碼不是 200，直接 alert 錯誤訊息
-          this.$alert.error(error.response.data.message);
-        });
+          this.$alert.error(error.response.data.message)
+        })
     },
     nav() {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
       if (scrollTop > 600) {
-        this.navshow = false;
-        this.navhide = true;
+        this.navshow = false
+        this.navhide = true
       } else {
-        this.navshow = true;
-        this.navhide = false;
+        this.navshow = true
+        this.navhide = false
       }
     },
     addProduct(product) {
@@ -549,45 +548,45 @@ export default {
         src: product.src1,
         price: product.price,
         quantity: 1,
-      };
+      }
       this.$alert.totasTopEnd(
-        product.productName + " x " + "1",
-        "已加入購物車",
+        product.productName + ' x ' + '1',
+        '已加入購物車',
         product.src1
-      );
-      this.$store.dispatch("cartModules/addProduct", data);
+      )
+      this.$store.dispatch('cartModules/addProduct', data)
     },
     // 移除喜歡的商品
     removeFavorItem(product) {
-      const index = this.favorites.indexOf(product);
-      this.$store.commit("favoritesModules/REMOVEFAVORITEM", index);
+      const index = this.favorites.indexOf(product)
+      this.$store.commit('favoritesModules/REMOVEFAVORITEM', index)
     },
     goDetail(id) {
-      this.$router.push(`/productdetail/${id}`);
+      this.$router.push(`/productdetail/${id}`)
     },
     removeProduct(product) {
       const data = {
         _id: product._id,
-      };
-      this.$alert.totasTopEnd(product.productName, "已移除購物車");
-      this.$store.dispatch("cartModules/removeProduct", data);
+      }
+      this.$alert.totasTopEnd(product.productName, '已移除購物車')
+      this.$store.dispatch('cartModules/removeProduct', data)
     },
     updateProduct(product) {
       const data = {
         _id: product._id,
         quantity: 1, //這裡要綁定，還沒寫
-      };
-      this.$alert.totasTopEnd(product.productName, "已更新購物車");
-      this.$store.dispatch("cartModules/updateProduct", data);
+      }
+      this.$alert.totasTopEnd(product.productName, '已更新購物車')
+      this.$store.dispatch('cartModules/updateProduct', data)
     },
   },
   mounted() {
-    window.addEventListener("scroll", this.nav);
+    window.addEventListener('scroll', this.nav)
   },
   destroyed() {
-    window.removeEventListener("scroll", this.nav);
+    window.removeEventListener('scroll', this.nav)
   },
-};
+}
 </script>
 
 <style lang="stylus" scoped>

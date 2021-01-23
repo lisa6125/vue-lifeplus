@@ -184,91 +184,91 @@
 
 <script>
 export default {
-  name: "ControlOder",
+  name: 'ControlOder',
   data() {
     return {
       allorders: [],
       changelist: false,
-      filter: "",
-    };
+      filter: '',
+    }
   },
   computed: {
     orderfilter() {
-      if (this.filter === "") {
-        return this.allorders;
+      if (this.filter === '') {
+        return this.allorders
       } else {
-        return this.allorders.filter((e) => {
-          return e.item === this.filter;
-        });
+        return this.allorders.filter(e => {
+          return e.item === this.filter
+        })
       }
     },
   },
   methods: {
     getallorder() {
-      this.axios.get(process.env.VUE_APP_API + "/orders").then((res) => {
-        this.allorders = res.data.result.map((item) => {
-          item.payModel = item.pay;
-          item.statusModel = item.status;
-          item.showoederdetail = false;
-          item.edit = false;
-          return item;
-        });
-      });
+      this.axios.get(process.env.VUE_APP_API + '/orders').then(res => {
+        this.allorders = res.data.result.map(item => {
+          item.payModel = item.pay
+          item.statusModel = item.status
+          item.showoederdetail = false
+          item.edit = false
+          return item
+        })
+      })
     },
     liststatus() {
-      this.allorders = this.allorders.reverse();
+      this.allorders = this.allorders.reverse()
       if (this.changelist) {
-        this.changelist = false;
+        this.changelist = false
       } else {
-        this.changelist = true;
+        this.changelist = true
       }
     },
     edit(order) {
-      order.edit = true;
+      order.edit = true
     },
     save(order) {
       this.axios
-        .patch(process.env.VUE_APP_API + "/orders/" + order.item, {
+        .patch(process.env.VUE_APP_API + '/orders/' + order.item, {
           pay: order.payModel,
           status: order.statusModel,
         })
-        .then((res) => {
-          order.edit = false;
-          order.pay = order.payModel;
-          order.status = order.statusModel;
-          this.$alert.success("更新成功");
+        .then(res => {
+          order.edit = false
+          order.pay = order.payModel
+          order.status = order.statusModel
+          this.$alert.success('更新成功')
         })
-        .catch((error) => {
-          this.$alert.error(error.response.data.message);
-        });
+        .catch(error => {
+          this.$alert.error(error.response.data.message)
+        })
     },
     cancel(order) {
-      order.payModel = order.pay;
-      order.statusModel = order.status;
-      order.edit = false;
+      order.payModel = order.pay
+      order.statusModel = order.status
+      order.edit = false
     },
     del(order, index) {
       this.axios
-        .delete(process.env.VUE_APP_API + "/orders/" + order.item)
-        .then((res) => {
+        .delete(process.env.VUE_APP_API + '/orders/' + order.item)
+        .then(res => {
           if (res.data.success) {
-            this.orderfilter.splice(index, 1);
-            let idx = this.allorders.indexOf(order);
-            this.allorders.splice(idx, 1);
-            this.$alert.success("刪除成功");
+            this.orderfilter.splice(index, 1)
+            let idx = this.allorders.indexOf(order)
+            this.allorders.splice(idx, 1)
+            this.$alert.success('刪除成功')
           } else {
-            this.$alert.error(res.data.message);
+            this.$alert.error(res.data.message)
           }
         })
-        .catch((error) => {
-          this.$alert.error(error.response.data.message);
-        });
+        .catch(error => {
+          this.$alert.error(error.response.data.message)
+        })
     },
   },
   created() {
-    this.getallorder();
+    this.getallorder()
   },
-};
+}
 </script>
 <style lang="stylus" scoped>
 .orders_item{
