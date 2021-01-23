@@ -16,8 +16,8 @@ import '../assets/css/dashboard.scss'
 import AdminNavbar from '../components/adminpage/AdminNavbar'
 export default {
   components: {
-    AdminNavbar,
+    AdminNavbar
   },
-  name: 'Admin',
+  name: 'Admin'
 }
 </script>

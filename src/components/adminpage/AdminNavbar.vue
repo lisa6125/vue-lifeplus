@@ -106,8 +106,8 @@ export default {
           // 如果回來的狀態碼不是 200，直接 alert 錯誤訊息
           this.$alert.error(error.response.data.message)
         })
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="stylus" scoped>

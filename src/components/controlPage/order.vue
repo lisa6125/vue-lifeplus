@@ -189,7 +189,7 @@ export default {
     return {
       allorders: [],
       changelist: false,
-      filter: '',
+      filter: ''
     }
   },
   computed: {
@@ -201,7 +201,7 @@ export default {
           return e.item === this.filter
         })
       }
-    },
+    }
   },
   methods: {
     getallorder() {
@@ -230,7 +230,7 @@ export default {
       this.axios
         .patch(process.env.VUE_APP_API + '/orders/' + order.item, {
           pay: order.payModel,
-          status: order.statusModel,
+          status: order.statusModel
         })
         .then(res => {
           order.edit = false
@@ -263,11 +263,11 @@ export default {
         .catch(error => {
           this.$alert.error(error.response.data.message)
         })
-    },
+    }
   },
   created() {
     this.getallorder()
-  },
+  }
 }
 </script>
 <style lang="stylus" scoped>

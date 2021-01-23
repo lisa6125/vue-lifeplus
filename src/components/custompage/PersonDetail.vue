@@ -57,8 +57,8 @@ export default {
       edit: true,
       options: [
         { item: '女性', name: '女性' },
-        { item: '男性', name: '男性' },
-      ],
+        { item: '男性', name: '男性' }
+      ]
     }
   },
   methods: {
@@ -81,7 +81,7 @@ export default {
             address: this.addressModel,
             phone: this.phoneModel,
             birth: this.birthModel,
-            gender: this.genderModel,
+            gender: this.genderModel
           }
         )
         .then(res => {
@@ -120,11 +120,11 @@ export default {
           this.useBirth = res.data.result.birth
           this.useGender = res.data.result.gender
         })
-    },
+    }
   },
   created() {
     this.getuserdetail()
-  },
+  }
 }
 </script>
 

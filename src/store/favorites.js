@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     favorites: [], // 喜歡商品資料
-    favorLength: 0 // 喜歡商品資料筆數
+    favorLength: 0, // 喜歡商品資料筆數
   },
   actions: {
     // 變更喜愛的商品資料(新增/移除)
@@ -30,7 +30,7 @@ export default {
 
       // // 重新整理
       // context.commit('FAVORITES')
-    }
+    },
   },
   mutations: {
     // FAVORITES(state) {
@@ -49,10 +49,10 @@ export default {
     REMOVEFAVORITEM(state, delIndex) {
       state.favorites.splice(delIndex, 1)
       state.favorLength = state.favorites.length
-    },
+    }
   },
   getters: {
     favorites: state => state.favorites,
-    favorLength: state => state.favorLength
-  }
+    favorLength: state => state.favorLength,
+  },
 }

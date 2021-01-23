@@ -8,7 +8,7 @@ export default {
       productCount: 0,
       totalPrice: 0,
       totalAmount: 0
-    },
+    }
   },
   actions: {
     addProduct(context, data) {
@@ -16,7 +16,7 @@ export default {
       let productCount = context.state.cart.productCount
       let totalPrice = 0
       let totalAmount = 0
-      if (products.length>0) {
+      if (products.length > 0) {
         const product = products.find(e => e._id === data._id)
         if (product) {
           // 如果購物車有這個商品，數量++
@@ -36,13 +36,14 @@ export default {
         totalPrice += e.quantity * e.price
         totalAmount += e.quantity
       }
-      context.commit('CHANGECART',{
+      context.commit('CHANGECART', {
         products,
         productCount,
         totalPrice,
-        totalAmount})
+        totalAmount
+      })
     },
-    removeProduct (context, data) {
+    removeProduct(context, data) {
       const products = context.state.cart.products
       let productCount = context.state.cart.productCount
       let totalPrice = 0
@@ -69,13 +70,14 @@ export default {
         totalAmount += e.quantity
       }
 
-      context.commit('CHANGECART',{
+      context.commit('CHANGECART', {
         products,
         productCount,
         totalPrice,
-        totalAmount})
+        totalAmount
+      })
     },
-    updateProduct (context, data) {
+    updateProduct(context, data) {
       const products = context.state.cart.products
       let productCount = context.state.cart.productCount
       let totalPrice = 0
@@ -98,14 +100,15 @@ export default {
         totalAmount += e.quantity
       }
 
-      context.commit('CHANGECART',{
+      context.commit('CHANGECART', {
         products,
         productCount,
         totalPrice,
-        totalAmount})
+        totalAmount
+      })
     },
     clearCart(context) {
-      context.commit('CHANGECART',{
+      context.commit('CHANGECART', {
         products: [],
         productCount: 0,
         totalPrice: 0,
@@ -122,6 +125,6 @@ export default {
     },
   },
   getters: {
-    cart: state => state.cart
+    cart: state => state.cart,
   },
-};
+}

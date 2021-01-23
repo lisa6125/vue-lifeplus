@@ -95,7 +95,7 @@ export default {
   data() {
     return {
       shares: [],
-      filter: '全部',
+      filter: '全部'
     }
   },
   computed: {
@@ -107,7 +107,7 @@ export default {
           return e.onshare === this.filter
         })
       }
-    },
+    }
   },
   methods: {
     getshares() {
@@ -145,7 +145,7 @@ export default {
       item.onshare = item.onsharemodel
       this.axios
         .patch(process.env.VUE_APP_API + '/shares/' + item._id, {
-          onshare: item.onsharemodel,
+          onshare: item.onsharemodel
         })
         .then(res => {
           console.log(res.data.result)
@@ -156,11 +156,11 @@ export default {
           console.log(error)
           this.$alert.error(error.response.data.message)
         })
-    },
+    }
   },
   created() {
     this.getshares()
-  },
+  }
 }
 </script>
 

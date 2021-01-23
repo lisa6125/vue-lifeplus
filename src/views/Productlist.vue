@@ -85,7 +85,7 @@ import Footer from '../components/main/footer'
 export default {
   components: {
     Navbar,
-    Footer,
+    Footer
   },
   name: 'Products',
   data() {
@@ -96,7 +96,7 @@ export default {
       navshow: true,
       navhide: false,
       lastScrollTop: 0,
-      showcart: false,
+      showcart: false
     }
   },
   computed: {
@@ -110,7 +110,7 @@ export default {
       }
     },
     ...mapGetters('favoritesModules', ['favorites']),
-    ...mapGetters('cartModules', ['cart']),
+    ...mapGetters('cartModules', ['cart'])
   },
   methods: {
     controlcart(val) {
@@ -170,7 +170,7 @@ export default {
         name: product.productName,
         src: product.src1,
         price: product.price,
-        quantity: 1,
+        quantity: 1
       }
       this.$alert.totasTopEnd(
         product.productName + ' x ' + '1',
@@ -189,11 +189,11 @@ export default {
     updateProduct(product) {
       const data = {
         _id: product._id,
-        quantity: 1, //這裡要綁定，還沒寫
+        quantity: 1 //這裡要綁定，還沒寫
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
-    },
+    }
   },
   mounted() {
     this.isLoading = true

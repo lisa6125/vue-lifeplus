@@ -142,7 +142,7 @@ export default {
     return {
       allorders: [],
       changelist: false,
-      filter: '全部',
+      filter: '全部'
     }
   },
   computed: {
@@ -154,7 +154,7 @@ export default {
           return e.askstatus === this.filter
         })
       }
-    },
+    }
   },
   methods: {
     getallorder() {
@@ -185,17 +185,17 @@ export default {
         process.env.VUE_APP_API + '/orders/reply/' + order.item,
         {
           reply: order.reply,
-          askstatus: '已回覆',
+          askstatus: '已回覆'
         }
       )
       this.getallorder()
       order.reply = ''
       this.$alert.success('回覆問題成功')
-    },
+    }
   },
   created() {
     this.getallorder()
-  },
+  }
 }
 </script>
 <style lang="stylus" scoped>

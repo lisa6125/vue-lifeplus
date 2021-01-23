@@ -354,7 +354,7 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      shownew: false,
+      shownew: false
     }
   },
   computed: {
@@ -362,7 +362,7 @@ export default {
       return this.$store.state.user
     },
     ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
-    ...mapGetters('cartModules', ['cart']),
+    ...mapGetters('cartModules', ['cart'])
   },
   methods: {
     logout() {
@@ -395,7 +395,7 @@ export default {
         name: product.productName,
         src: product.src1,
         price: product.price,
-        quantity: 1,
+        quantity: 1
       }
       this.$alert.totasTopEnd(
         product.productName + ' x ' + '1',
@@ -414,7 +414,7 @@ export default {
     },
     removeProduct(product) {
       const data = {
-        _id: product._id,
+        _id: product._id
       }
       this.$alert.totasTopEnd(product.productName, '已移除購物車')
       this.$store.dispatch('cartModules/removeProduct', data)
@@ -422,15 +422,15 @@ export default {
     updateProduct(product) {
       const data = {
         _id: product._id,
-        quantity: 1, //這裡要綁定，還沒寫
+        quantity: 1 //這裡要綁定，還沒寫
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
     },
     change() {
       this.$emit('change', true)
-    },
-  },
+    }
+  }
 }
 </script>
 

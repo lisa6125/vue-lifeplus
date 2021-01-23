@@ -210,11 +210,11 @@ import Navbar from '../components/main/navbar'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    Navbar,
+    Navbar
   },
   name: 'CheckOrder',
   computed: {
-    ...mapGetters('cartModules', ['cart']),
+    ...mapGetters('cartModules', ['cart'])
   },
   data() {
     return {
@@ -224,9 +224,9 @@ export default {
         userName: '',
         userEmail: '',
         userAddress: '',
-        userPhone: '',
+        userPhone: ''
       },
-      cartlist: {},
+      cartlist: {}
     }
   },
   methods: {
@@ -284,7 +284,7 @@ export default {
         pay: '未付款',
         status: '未出貨',
         ask: [],
-        askstatus: '無',
+        askstatus: '無'
       })
       this.$alert.success('已送出訂單')
       this.$store.dispatch('cartModules/clearCart')
@@ -295,14 +295,14 @@ export default {
           this.$swal({
             icon: 'error',
             title: '錯誤',
-            text: err,
+            text: err
           })
         })
     },
   },
   created() {
     this.getuserdetail()
-  },
+  }
 }
 </script>
 

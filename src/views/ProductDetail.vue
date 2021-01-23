@@ -201,7 +201,7 @@ export default {
   name: 'ProductDetail',
   components: {
     Navbar,
-    Footer,
+    Footer
   },
   data() {
     return {
@@ -212,12 +212,12 @@ export default {
       selectPic: '',
       showcart: false,
       quantity: 1,
-      notsale: '',
+      notsale: ''
     }
   },
   computed: {
     ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
-    ...mapGetters('cartModules', ['cart']),
+    ...mapGetters('cartModules', ['cart'])
   },
   methods: {
     goback() {
@@ -312,7 +312,7 @@ export default {
           '/products/images/' +
           product.images[0].file,
         price: product.price,
-        quantity: this.quantity,
+        quantity: this.quantity
       }
       this.$alert.success('已加入購物車')
       this.$store.dispatch('cartModules/addProduct', data)
@@ -333,12 +333,12 @@ export default {
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
-    },
+    }
   },
   created() {
     this.getProduct()
     this.getProducts()
-  },
+  }
 }
 </script>
 <style lang="stylus">

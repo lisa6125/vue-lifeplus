@@ -473,7 +473,7 @@ export default {
   components: {
     Navbarhome,
     Swiper,
-    Footer,
+    Footer
   },
   name: 'Home',
   data() {
@@ -485,7 +485,7 @@ export default {
       navshow: true,
       navhide: false,
       lastScrollTop: 0,
-      showcart: false,
+      showcart: false
     }
   },
   computed: {
@@ -493,7 +493,7 @@ export default {
       return this.$store.state.user
     },
     ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
-    ...mapGetters('cartModules', ['cart']),
+    ...mapGetters('cartModules', ['cart'])
   },
   methods: {
     controlcart(val) {
@@ -547,7 +547,7 @@ export default {
         name: product.productName,
         src: product.src1,
         price: product.price,
-        quantity: 1,
+        quantity: 1
       }
       this.$alert.totasTopEnd(
         product.productName + ' x ' + '1',
@@ -578,14 +578,14 @@ export default {
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
-    },
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.nav)
   },
   destroyed() {
     window.removeEventListener('scroll', this.nav)
-  },
+  }
 }
 </script>
 

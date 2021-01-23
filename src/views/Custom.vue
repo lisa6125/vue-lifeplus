@@ -60,17 +60,17 @@ import Navbar from '../components/main/navbar'
 export default {
   components: {
     customSide,
-    Navbar,
+    Navbar
   },
   name: 'Custom',
   data() {
     return {
-      showcart: false,
+      showcart: false
     }
   },
   computed: {
     ...mapGetters('favoritesModules', ['favorites', 'favorLength']),
-    ...mapGetters('cartModules', ['cart']),
+    ...mapGetters('cartModules', ['cart'])
   },
   methods: {
     controlcart(val) {
@@ -90,7 +90,7 @@ export default {
         name: product.productName,
         src: product.src1,
         price: product.price,
-        quantity: 1,
+        quantity: 1
       }
       this.$alert.totasTopEnd(
         product.productName + ' x ' + '1',
@@ -113,8 +113,8 @@ export default {
       }
       this.$alert.totasTopEnd(product.productName, '已移除購物車')
       this.$store.dispatch('cartModules/removeProduct', data)
-    },
-  },
+    }
+  }
 }
 </script>
 

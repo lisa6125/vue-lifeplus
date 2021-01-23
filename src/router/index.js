@@ -11,8 +11,8 @@ const routes = [
     component: Home,
     meta: {
       title: '享家點',
-      login: false,
-    },
+      login: false
+    }
   },
   {
     path: '/products/:filter',
@@ -21,8 +21,8 @@ const routes = [
       import(/* webpackChunkName: "products" */ '../views/Productlist.vue'),
     meta: {
       title: '享家點|商品區',
-      login: false,
-    },
+      login: false
+    }
   },
   {
     path: '/productdetail/:productId',
@@ -33,8 +33,8 @@ const routes = [
       ),
     meta: {
       title: '享家點|商品介紹',
-      login: false,
-    },
+      login: false
+    }
   },
   {
     path: '/admin',
@@ -47,7 +47,7 @@ const routes = [
     meta: {
       title: '享家點|後台管理',
       login: true,
-      right: true,
+      right: true
     },
     children: [
       {
@@ -60,7 +60,7 @@ const routes = [
         meta: {
           title: '享家點|商品管理',
           login: true,
-          right: true,
+          right: true
         },
       },
       {
@@ -73,7 +73,7 @@ const routes = [
         meta: {
           title: '享家點|訂單管理',
           login: true,
-          right: true,
+          right: true
         },
       },
       {
@@ -86,8 +86,8 @@ const routes = [
         meta: {
           title: '享家點|回覆管理',
           login: true,
-          right: true,
-        },
+          right: true
+        }
       },
       {
         path: 'controlshare',
@@ -99,8 +99,8 @@ const routes = [
         meta: {
           title: '享家點|分享管理',
           login: true,
-          right: true,
-        },
+          right: true
+        }
       },
     ],
   },
@@ -114,7 +114,7 @@ const routes = [
       import(/* webpackChunkName: "custom" */ '../views/Custom.vue'),
     meta: {
       title: '享家點|會員專區',
-      login: true,
+      login: true
     },
     children: [
       {
@@ -126,7 +126,7 @@ const routes = [
           ),
         meta: {
           title: '享家點|會員資料',
-          login: true,
+          login: true
         },
       },
       {
@@ -138,8 +138,8 @@ const routes = [
           ),
         meta: {
           title: '享家點|會員訂單',
-          login: true,
-        },
+          login: true
+        }
       },
       {
         path: 'sharedetail',
@@ -150,10 +150,10 @@ const routes = [
           ),
         meta: {
           title: '享家點|分享回饋',
-          login: true,
-        },
-      },
-    ],
+          login: true
+        }
+      }
+    ]
   },
   {
     path: '/checkorder',
@@ -165,8 +165,8 @@ const routes = [
       import(/* webpackChunkName: "checkorder" */ '../views/CheckOrder.vue'),
     meta: {
       title: '享家點|結帳',
-      login: false,
-    },
+      login: false
+    }
   },
   {
     path: '/login',
@@ -178,8 +178,8 @@ const routes = [
       import(/* webpackChunkName: "login" */ '../views/Login.vue'),
     meta: {
       title: '享家點|登入',
-      login: false,
-    },
+      login: false
+    }
   },
   {
     path: '/share',
@@ -191,8 +191,8 @@ const routes = [
       import(/* webpackChunkName: "share" */ '../views/Share.vue'),
     meta: {
       title: '享家點|分享',
-      login: false,
-    },
+      login: false
+    }
   },
 ]
 

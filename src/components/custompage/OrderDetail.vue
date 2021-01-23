@@ -166,7 +166,7 @@ export default {
       userorders: [],
       changelist: false,
       askitem: '',
-      askquestion: '',
+      askquestion: ''
     }
   },
   methods: {
@@ -197,7 +197,7 @@ export default {
       this.axios
         .patch(process.env.VUE_APP_API + '/orders/ask/' + this.askitem, {
           userask: this.askquestion,
-          askstatus: '未回覆',
+          askstatus: '未回覆'
         })
         .then(res => {
           this.userorders.find((e, index) => {
@@ -211,11 +211,11 @@ export default {
       this.askitem = ''
       this.askquestion = ''
       this.$alert.success('新增問題成功')
-    },
+    }
   },
   created() {
     this.getorders()
-  },
+  }
 }
 </script>
 

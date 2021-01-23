@@ -174,7 +174,7 @@ export default {
       file: null,
       products: [],
       priviewPic: [],
-      image: [],
+      image: []
     }
   },
   computed: {
@@ -186,7 +186,7 @@ export default {
       } else {
         return true
       }
-    },
+    }
   },
   methods: {
     onSubmit() {
@@ -228,7 +228,7 @@ export default {
           console.log(res)
           this.$swal({
             icon: 'success',
-            title: '新增商品成功',
+            title: '新增商品成功'
           })
           this.priviewPic = []
         })
@@ -236,7 +236,7 @@ export default {
           this.$swal({
             icon: 'error',
             title: '錯誤',
-            text: err.response.data.message,
+            text: err.response.data.message
           })
         })
     },
@@ -257,7 +257,7 @@ export default {
           price: product.priceModel,
           quantity: product.quantityeModel,
           onsale: product.onsaleModel,
-          description: product.descriptionModel,
+          description: product.descriptionModel
         })
         .then(res => {
           product.edit = false
@@ -301,14 +301,14 @@ export default {
           this.$swal({
             icon: 'error',
             title: '錯誤',
-            text: '圖片太大',
+            text: '圖片太大'
           })
         } else if (!i.type.includes('image')) {
           this.image = []
           this.$swal({
             icon: 'error',
             title: '錯誤',
-            text: '檔案格式錯誤',
+            text: '檔案格式錯誤'
           })
         } else {
           this.image.push(i)
@@ -321,7 +321,7 @@ export default {
         // console.log(this.image[i])
       }
       // console.log(this.priviewPic)
-    },
+    }
   },
   mounted() {
     this.axios
@@ -350,7 +350,7 @@ export default {
         console.log(error)
         this.$alert.error(error.response.data.message)
       })
-  },
+  }
 }
 </script>
 

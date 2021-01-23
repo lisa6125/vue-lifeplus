@@ -14,7 +14,7 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import ImgInputer from 'vue-img-inputer'
 import 'vue-img-inputer/dist/index.css'
 import Photoswipe from 'vue-pswipe'
-//載入效果
+// 載入效果
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import 'bootstrap'
@@ -35,7 +35,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faInstagram,
-  faFacebookSquare,
+  faFacebookSquare
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faShoppingCart,
@@ -61,7 +61,7 @@ import {
   faHandHoldingHeart,
   faDraftingCompass,
   faHands,
-  faShippingFast,
+  faShippingFast
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -109,12 +109,12 @@ Vue.component('Loading', Loading)
 Vue.use(VueFormWizard)
 Vue.use(Vuegtag, {
   config: {
-    id: process.env.VUE_APP_GA,
-  },
+    id: process.env.VUE_APP_GA
+  }
 })
 
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')

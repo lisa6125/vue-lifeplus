@@ -10,7 +10,7 @@ export default {
   computed: {
     user() {
       return this.$store.state.user
-    },
+    }
   },
   methods: {
     logout() {
@@ -63,14 +63,14 @@ export default {
             this.$router.push('/')
           }
         })
-    },
+    }
   },
   mounted() {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()
     }, 5000)
-  },
+  }
 }
 </script>
 

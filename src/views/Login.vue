@@ -44,7 +44,7 @@
 import Navbar from '../components/main/navbar'
 export default {
   components: {
-    Navbar,
+    Navbar
   },
   name: 'login',
   data() {
@@ -56,8 +56,8 @@ export default {
       right: false,
       status: {
         bounceRight: false,
-        bounceLeft: true,
-      },
+        bounceLeft: true
+      }
     }
   },
   methods: {
@@ -107,8 +107,8 @@ export default {
         this.status.bounceRight = false
         this.status.bounceLeft = true
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

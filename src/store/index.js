@@ -11,32 +11,29 @@ export default new Vuex.Store({
       account: '',
       name: '',
       _id: '',
-      right: ''
-    }
+      right: '',
+    },
   },
   mutations: {
-    logout (state) {
+    logout(state) {
       state.user.account = ''
       state.user.name = ''
       state.user._id = ''
       state.user.right = ''
     },
-    login (state, data) {
+    login(state, data) {
       state.user.name = data.name
       state.user.account = data.account
       state.user._id = data._id
       state.user.right = data.right
-    }
+    },
   },
-  actions: {
-  },
-  modules: {
-  },
-  getters: {
-  },
+  actions: {},
+  modules: {},
+  getters: {},
   modules: {
     cartModules,
-    favoritesModules
+    favoritesModules,
   },
-  plugins: [Persistedstate()]
+  plugins: [Persistedstate()],
 })
