@@ -171,14 +171,14 @@ export default {
     updateProduct (product) {
       const data = {
         _id: product._id,
-        quantity: 1 //這裡要綁定，還沒寫
+        quantity: 1 // 這裡要綁定，還沒寫
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
     },
     getshares () {
       this.axios.get(process.env.VUE_APP_API + '/shares/').then(res => {
-        let postshare = res.data.result.filter(e => {
+        const postshare = res.data.result.filter(e => {
           return e.onshare === '審核通過'
         })
         this.shares = postshare.map(e => {

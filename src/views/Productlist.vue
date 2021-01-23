@@ -189,7 +189,7 @@ export default {
     updateProduct (product) {
       const data = {
         _id: product._id,
-        quantity: 1 //這裡要綁定，還沒寫
+        quantity: 1 // 這裡要綁定，還沒寫
       }
       this.$alert.totasTopEnd(product.productName, '已更新購物車')
       this.$store.dispatch('cartModules/updateProduct', data)
@@ -200,7 +200,7 @@ export default {
     this.axios
       .get(process.env.VUE_APP_API + '/products/')
       .then(res => {
-        let onsaleproducts = res.data.result.filter(e => {
+        const onsaleproducts = res.data.result.filter(e => {
           return e.onsale === true
         })
         this.allproducts = onsaleproducts.map(product => {

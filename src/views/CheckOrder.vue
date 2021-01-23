@@ -216,7 +216,7 @@ export default {
   computed: {
     ...mapGetters('cartModules', ['cart'])
   },
-  data() {
+  data () {
     return {
       steps: ['確認商品', '確認資料', '送出訂單'],
       payment: '選擇付款方式',
