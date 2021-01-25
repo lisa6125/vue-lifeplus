@@ -201,14 +201,21 @@
             </div>
             <div class="carousel-item">
               <img
-                src="@/assets/images/banner02.png"
+                src="@/assets/images/banner04.jpg"
                 class="d-block w-100"
                 alt="..."
               />
             </div>
             <div class="carousel-item">
               <img
-                src="@/assets/images/banner03.png"
+                src="@/assets/images/banner08.jpg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="@/assets/images/banner06.jpg"
                 class="d-block w-100"
                 alt="..."
               />
