@@ -156,8 +156,8 @@
               h5.my-3 商品描述:
               span(v-if='product.edit === false') {{ product.description }}
               .allpic.d-flex.flex-wrap.mt-5
-                div.pic.mx-2(v-for='item in product.images')
-                  img(:src='"http://localhost:3000/products/images/"+item.file')
+                div.pic.mx-2(v-for='item in product.img')
+                  img(:src='item')
 </template>
 
 <script>
@@ -333,6 +333,10 @@ export default {
               process.env.VUE_APP_API +
               '/products/images/' +
               product.images[0].file
+            product.img = []
+            product.images.forEach((e) => {
+              product.img.push(process.env.VUE_APP_API + '/products/images/' + e.file)
+            })
           }
           product.productNameModel = product.productName
           product.typeModel = product.type
@@ -342,7 +346,6 @@ export default {
           product.descriptionModel = product.description
           product.edit = false
           product.showDetail = false
-          delete product.file
           return product
         })
       })
