@@ -15,6 +15,8 @@
                   img.d-block.w-100.h-100(src='../assets/images/banner/2.jpg' alt='...')
                 .carousel-item(data-interval="2000")
                   img.d-block.w-100.h-100(src='../assets/images/banner/3.jpg' alt='...')
+                .carousel-item(data-interval="2000")
+                  img.d-block.w-100.h-100(src='../assets/images/banner/4.jpg' alt='...')
     .container-fluid
       .row.mx-auto
         .col-12.p-0
@@ -257,21 +259,20 @@ export default {
   }
   .product_nav_bar{
     overflow hidden
-    height 500px
+    height 600px
     position relative
     @media screen and (max-width: 992px){
-      height 300px
+      height 400px
     }
     @media screen and (max-width: 576px){
-      height 150px
+      height 300px
     }
     img{
       width 100%
       height 100%
       object-fit cover
+      @media screen and (min-width: 992px){
       transform translate(0,-20%)
-      @media screen and (max-width: 992px){
-      transform translate(0,0)
     }
     }
     .text{
