@@ -1,52 +1,51 @@
 import multer from 'multer'
+import FTPStorage from 'multer-ftp'
+import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 
 import products from '../models/products.js'
 
-// 上傳檔案的儲存設定
-const storage = multer.diskStorage({
-  // req 請求
-  // file 檔案資訊
-  // callback 處理的 function
-  destination (req, file, callback) {
-    // callback(null, 資料夾)
-    callback(null, './images/')
-  },
-  async filename (req, file, callback) {
-    let filename = Date.now() + path.extname(file.originalname)
-    const filepath = process.cwd() + '/images/' + filename
-    const exists = fs.existsSync(filepath)
-    console.log(filepath, exists)
-    if (exists) {
-      filename = Date.now() + '1' + path.extname(file.originalname)
-    }
-    // callback(null, 檔名)
-    // 時間當檔名 + 原上傳檔案的副檔名
-    callback(null, filename)
-  }
-})
+let storage
 
-// 上傳設定
+// 本機開發，檔案存電腦
+// 雲端環境，檔案存 FTP
+if (process.env.DEV === 'true') {
+  storage = multer.diskStorage({
+    destination (req, file, callback) {
+      callback(null, 'images/')
+    },
+    filename (req, file, callback) {
+      callback(null, Date.now() + path.extname(file.originalname))
+    }
+  })
+} else {
+  storage = new FTPStorage({
+    // FTP 登入設定
+    ftp: {
+      host: process.env.FTP_HOST,
+      user: process.env.FTP_USER,
+      password: process.env.FTP_PASSWORD,
+      secure: false
+    },
+    // 上傳的路徑含檔名
+    // 路徑為 FTP 的絕對路徑
+    destination (req, file, options, callback) {
+      callback(null, '/' + Date.now() + path.extname(file.originalname))
+    }
+  })
+}
+
 const upload = multer({
   storage,
-  // 過濾檔案
   fileFilter (req, file, callback) {
-    if (file.mimetype.includes('image')) {
-      callback(null, true)
-    } else {
-      // 回應一個 multer 錯誤
-      // 因為套件觸發的錯誤類型是 MulterError
-      // 觸發跟套件一樣的錯誤類型保持格式統一，就不用另外寫判斷是哪種錯誤，也能直接知道是上傳發生的錯誤
-      // LIMIT_FORMAT 是自訂錯誤 CODE，和內建的格式統一
+    if (!file.mimetype.includes('image')) {
       callback(new multer.MulterError('LIMIT_FORMAT'), false)
+    } else {
+      callback(null, true)
     }
   },
   limits: {
-    // 大小限制 1MB
-    // 單位是 B
-    // 1KB = 1024B
-    // 1MB = 1024KB
     fileSize: 1024 * 1024
   }
 })
@@ -194,12 +193,24 @@ export const productId = async (req, res) => {
 }
 
 export const getImage = async (req, res) => {
-  const path = process.cwd() + '/images/' + req.params.file
-  const exists = fs.existsSync(path)
-
-  if (exists) {
-    res.status(200).sendFile(path)
+    // 開發環境回傳本機圖片
+  if (process.env.DEV === 'true') {
+    const path = process.cwd() + '/images/' + req.params.file
+    const exists = fs.existsSync(path)
+    if (exists) {
+      res.status(200).sendFile(path)
+    } else {
+      res.status(404).send({ success: false, message: '找不到圖片' })
+    }
   } else {
-    res.status(404).send({ success: false, message: '找不到檔案' })
+    axios({
+      method: 'GET',
+      url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
+      responseType: 'stream'
+    }).then(ress => {
+      ress.data.pipe(res)
+    }).catch(error => {
+      res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
+    })
   }
 }
