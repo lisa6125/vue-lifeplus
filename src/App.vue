@@ -8,12 +8,12 @@ import '../src/assets/css/variable.scss'
 export default {
   name: 'App',
   computed: {
-    user () {
+    user() {
       return this.$store.state.user
     }
   },
   methods: {
-    logout () {
+    logout() {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
@@ -36,7 +36,7 @@ export default {
           this.$alert.error(error.response.data.message)
         })
     },
-    heartbeat () {
+    heartbeat() {
       this.axios
         .get(process.env.VUE_APP_API + '/users/heartbeat')
         .then(res => {
@@ -65,13 +65,13 @@ export default {
           }
         })
     }
-  },
-  mounted () {
-    this.heartbeat()
-    setInterval(() => {
-      this.heartbeat()
-    }, 5000)
   }
+  // mounted() {
+  //   // this.heartbeat() 移除驗證
+  //   // setInterval(() => {
+  //   //   this.heartbeat()
+  //   // }, 5000)
+  // }
 }
 </script>
 
